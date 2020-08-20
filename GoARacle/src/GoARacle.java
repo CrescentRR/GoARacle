@@ -1,6 +1,10 @@
-import java.util.*; //For ArrayList
+import java.util.*;//For ArrayList
+import java.awt.*;
+import java.awt.event.*;
 import java.io.*; //For BufferedReader and FileReader
 import javax.swing.*; //For file selection
+import javax.swing.filechooser.*; //For only showing PNACH files on file choice
+import javax.swing.plaf.metal.MetalToggleButtonUI;
 
 /*
  * To Do:
@@ -15,7 +19,7 @@ import javax.swing.*; //For file selection
 
 
 
-public class GoARacle {
+public class GoARacle extends JPanel implements ActionListener, MouseListener{
 	
 	static ArrayList<String> locationCodes; //All locations
 	static ArrayList<String> poolCodes; //All pool items
@@ -23,9 +27,71 @@ public class GoARacle {
 	static ArrayList<Pool> pools; //All pool items by pool
 	static Report[] reports;
 	
-	public static void main(String[] args) throws IOException {
+	
+	JFrame frame;
+	
+	JButton pnachButton;
+	JPanel pnachPanel;
+	
+	JToggleButton[] hintButtons;
+	JPanel hintPanel;
+	
+	public GoARacle() throws FileNotFoundException {
 		
-		locationCodes=new ArrayList<>();
+		locationCodes=new ArrayList<String>();
+		poolCodes=new ArrayList<String>();
+		reports=new Report[13];
+		for(int i=0; i<13; i++) {
+			reports[i]=new Report(i);
+		}
+		worlds=generateWorlds("Locations.txt");
+		pools=generatePools("Pools.txt");
+		
+		
+		
+		frame=new JFrame("GoARacle");
+		frame.add(this);
+		frame.setSize(1000,1250);
+		
+		
+		pnachButton=new JButton();
+		pnachButton.addActionListener(this);
+		pnachButton.setPreferredSize(new Dimension(10,93));
+		pnachButton.setText("Select Seed");
+		pnachButton.setFont(new Font("Arial", Font.ITALIC, 50));
+		
+		pnachPanel=new JPanel();
+		pnachPanel.setLayout(new BorderLayout());
+		pnachPanel.add(pnachButton,BorderLayout.NORTH);
+		
+		frame.add(pnachPanel,BorderLayout.NORTH);
+		
+		hintPanel=new JPanel();
+		hintPanel.setLayout(new GridLayout(13,1));
+		
+		hintButtons=new JToggleButton[13];
+		
+		for(int i=0; i<13; i++) {
+			hintButtons[i]=new JToggleButton();
+			hintButtons[i].addMouseListener(this);
+			hintButtons[i].setPreferredSize(new Dimension(1,1));
+			hintButtons[i].setBackground(Color.WHITE);
+			hintButtons[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			hintButtons[i].setText("Secret Ansem Report #"+(i+1));
+			hintButtons[i].setFont(new Font("Arial",Font.PLAIN,30));
+			hintPanel.add(hintButtons[i]);
+		}
+		
+		
+		frame.add(hintPanel,BorderLayout.CENTER);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		
+		
+	}//end GoARacle
+	
+	/*
+	 * 	locationCodes=new ArrayList<>();
 		poolCodes=new ArrayList<>();
 	
 		pools=generatePools("Pools.txt");
@@ -35,17 +101,6 @@ public class GoARacle {
 			reports[i]=new Report(i+1);
 		}
 		
-	
-	
-	/*for(World curr:worlds) {
-		System.out.println(curr.name+": "+curr.locations.size());
-	}
-	System.out.println();
-	
-	for(Pool curr:pools) {
-		System.out.println(curr.name+": "+curr.items.size());
-	}*/
-	
 	readPnach();
 	
 	for(World world:worlds) {
@@ -59,86 +114,13 @@ public class GoARacle {
 	for(World world:worlds)
 		world.getReportInfo();
 		
+	 */
+	
+	public static void main(String[] args) throws IOException {
+		GoARacle goARacle=new GoARacle();
 	}//end main method
 	
-	public static class World{
-		
-		String name; //Name of world/location of items
-		ArrayList<String> locations; //list of each world's locations
-		
 
-		int[] poolItems; //number of items in each pool
-		
-		ArrayList<Integer> priorityScore;
-		
-		public World(String name, String[] locs) {
-			locations=new ArrayList<String>();
-			for(String curr:locs)
-				locations.add(curr);
-			poolItems=new int[pools.size()];
-			for(int i=0; i<poolItems.length; i++)
-				poolItems[i]=0;
-			
-			priorityScore=new ArrayList<>();
-			
-			for(int i=0; i<poolItems.length; i++) {
-				priorityScore.add(pools.get(i).priority*poolItems[i]);
-			}
-			
-			this.name=name;
-		}//end constructor
-		
-		public void fixLevel() {
-			if(this.name.equals("Levels"))
-				for(int i=0; i<poolItems.length; i++)
-					poolItems[i]/=3;
-		}
-		
-		public void updatePriority() {
-			for(int i=0; i<priorityScore.size(); i++)
-				priorityScore.set(i, pools.get(i).priority*poolItems[i]);
-		}
-		
-		public void getReportInfo() {
-			
-			
-			int index=0;
-			
-			for(int i=1; i<priorityScore.size(); i++) {
-				if(priorityScore.get(i)>priorityScore.get(index))
-					index=i;
-			}
-			
-			System.out.print(pools.get(index).name+" can be found ");
-			
-			if(this.name.equals("Levels"))
-				System.out.println("from within.");
-			else if(this.name.equals("Forms"))
-				System.out.println("from extra strength.");
-			else System.out.println("in "+this.name+".");
-				
-		}
-		
-	}//end World class
-	
-	public static class Pool{
-		
-		String name;
-		ArrayList<String> items;
-		int priority;
-		
-		public Pool(String name, String[] items, int priority) {
-			this.items=new ArrayList<String>();
-			for(String curr:items)
-				this.items.add(curr);
-			
-			this.name=name;
-			this.priority=priority;
-		}//end constructor
-		
-	}//end Pool class
-	
-	
 	
 	public static class Report{
 		
@@ -241,6 +223,11 @@ public class GoARacle {
 					poolCodes.add("0000"+text);
 				}
 				
+				for(World world:worlds) {
+					world.pools=output;
+					world.poolItems=new int[output.size()];
+				}
+				
 			}//end while
 			
 		}catch(IOException fnf) {
@@ -255,13 +242,23 @@ public class GoARacle {
 		
 		try {
 		
-		
-		
+	
 		JFileChooser jfc=new JFileChooser();
-		jfc.setDialogTitle("Select pnach");
+		jfc.setDialogTitle("Select Seed File");
 		jfc.setCurrentDirectory(new File(System.getProperty("user.dir")));
 		
+		//jfc.addChoosableFileFilter(new FileNameExtensionFilter("PNACH files", "pnach"));
+		jfc.setFileFilter(new FileNameExtensionFilter("PNACH files", "pnach"));
+		
 		if(jfc.showOpenDialog(null)==JFileChooser.APPROVE_OPTION) {
+			
+			
+			if(!jfc.getSelectedFile().getName().contains("pnach")) {
+				readPnach();
+				return;
+			}
+				
+			
 			BufferedReader input=new BufferedReader(new FileReader(jfc.getSelectedFile()));
 			
 			String text="";
@@ -297,7 +294,6 @@ public class GoARacle {
 		
 		for(World world:worlds) {
 			world.fixLevel();
-			world.updatePriority();
 		}
 		
 		}catch(IOException io) {
@@ -305,7 +301,53 @@ public class GoARacle {
 		}
 		
 	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==pnachButton) {
+			try {
+				readPnach();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}//end pnachButton
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
+		for(int i=0; i<13; i++) {
+			if(e.getSource()==hintButtons[i]) {
+				
+			}//end source if
+		}//end outer for loop
+	}//end mouseReleased
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }//end GoARacle class
-
-
