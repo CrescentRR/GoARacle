@@ -12,8 +12,11 @@ Proof of Tranquility
 
 ## [Goofy's Choice] 10 items, Priority Score 33
 Valor Form
+
 Cure Element x3
+
 Reflect Element x3
+
 Magnet Element x3
 
 ## [Donald's Choice] 10 items, Priority Score 33
