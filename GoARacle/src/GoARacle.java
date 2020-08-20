@@ -346,7 +346,25 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		else if(e.getSource()==aboutButton) {
 			JDialog aboutBox=new JDialog(frame, "About");
 			aboutBox.setSize(500,500);
-			String text="[Path of Light] 4 items\n Promise Charm\n Proof of Nonexistance\n Proof of Connection\n Proof of Tranquility\n \n [Goofy's Choice] 10 items\n Valor Form\n Cure Element x3\n Reflect Element x3\n Magnet Element x3\n \n [Donald's Choice] 10 items\n Wisdom Form\n Fire Element x3\n Blizzard Element x3\n Thunder Element x3\n \n [Merlin's Choice] 9 items\n Torn Page x5\n Baseball Charm\n Lamp Charm\n Ukelele Charm\n Feather Charm\n \n [Roxas' Choice] 11 items\n Final Form\n Light and Dark\n Scan x2\n Guard\n Aerial Recovery\n Second Chance\n Once More\n Combo Master\n Finishing Plus x2\n \n [Riku's Choice] 8 items\n Limit Form\n Explosion\n Guard Break\n Flash Step\n Slide Dash\n Finishing Dive\n Combo Boost x2\n \n [Kairi's Choice] 8 items\n Master Form\n Aerial Finish\n Magnet Splash\n Aerial Spiral\n Aerial Dive\n Horizontal Slash\n Air Combo Boost x2\n \n";
+			
+			String text="";
+			String line="";
+			try {
+				BufferedReader file=new BufferedReader(new FileReader("Pool Meaning.txt"));
+				
+				while((line=file.readLine())!=null) {
+					text+=line+"\n";
+				}
+				
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			
 			JTextArea aboutBlurb=new JTextArea(text);
 			JScrollPane scroll=new JScrollPane(aboutBlurb, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			aboutBlurb.setEditable(false);
