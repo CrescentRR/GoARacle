@@ -51,7 +51,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		
 		
 		
-		frame=new JFrame("GoARacle");
+		frame=new JFrame("GoARacle Beta by CrescentRR");
 		frame.add(this);
 		frame.setSize(1000,1250);
 		
@@ -333,12 +333,12 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 				e1.printStackTrace();
 			}
 			
-			for(World world:worlds) {
+			/*for(World world:worlds) {
 				System.out.print(world.name+": ");
 				for(int pool:world.poolItems)
 					System.out.print(pool+" ");
 				System.out.println();
-			}
+			}*/
 			
 			
 		}//end pnachButton
