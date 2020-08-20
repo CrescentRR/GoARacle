@@ -41,7 +41,7 @@ Ukelele Charm
 Feather Charm
 
 
-## [Roxas' Choice] 11 items, Priority Score 25
+## [Roxas' Choice] 13 items, Priority Score 25
 Final Form
 
 Light and Dark
@@ -58,10 +58,12 @@ Once More
 
 Combo Master
 
-Finishing Plus x2
+Finishing Plus x3
+
+Counterguard
 
 
-## [Riku's Choice] 8 items, Priority Score 25
+## [Riku's Choice] 10 items, Priority Score 25
 Limit Form
 
 Explosion
@@ -76,8 +78,12 @@ Finishing Dive
 
 Combo Boost x2
 
+Slapshot
 
-## [Kairi's Choice] 8 items, Priority Score 25
+Round Break
+
+
+## [Kairi's Choice] 10 items, Priority Score 25
 Master Form
 
 Aerial Finish
@@ -92,6 +98,16 @@ Horizontal Slash
 
 Air Combo Boost x2
 
+Berserk Charge x2
+
+## [Mickey's Choice] 9 items, Priority Score 20
+Trinity Limit
+
+Negative Combo x2
+
+Combo Plus x3
+
+Air Combo Plus x3
 
 ## [Reports] 13 items, Priority Score 13
 Secret Ansem's Report #1
