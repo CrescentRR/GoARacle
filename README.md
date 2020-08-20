@@ -3,15 +3,13 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## Plans
 
--Implement Swing for a user interface.
-
--Create a balanced pool as a default. [Possibly completed, need critiquing on items, later need numerical balancing]
-
 -Create executable file.
 
 (Plans subject to change)
 
 ## Changelog
+
+8/20/20 1:20pm: Completed usable demo of hint generator.  Not an executable, but it still should run without needing to fix code.  
 
 8/20/20: Implemented skeleton of UI, moved World and Pool objects to seperate class files.  Created updated pool (Ideas for Pools.txt for more info)
 
