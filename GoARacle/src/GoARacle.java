@@ -26,11 +26,13 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 	static ArrayList<World> worlds; //All locations by world
 	static ArrayList<Pool> pools; //All pool items by pool
 	static Report[] reports;
+	static ArrayList<World> worldOrder;
 	
 	
 	JFrame frame;
 	
 	JButton pnachButton;
+	JButton aboutButton;
 	JPanel pnachPanel;
 	
 	JToggleButton[] hintButtons;
@@ -56,13 +58,20 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		
 		pnachButton=new JButton();
 		pnachButton.addActionListener(this);
-		pnachButton.setPreferredSize(new Dimension(10,93));
+		pnachButton.setPreferredSize(new Dimension(10,46));
 		pnachButton.setText("Select Seed");
-		pnachButton.setFont(new Font("Arial", Font.ITALIC, 50));
+		pnachButton.setFont(new Font("Arial", Font.ITALIC, 25));
+		
+		aboutButton=new JButton();
+		aboutButton.addActionListener(this);
+		aboutButton.setPreferredSize(new Dimension(10,46));
+		aboutButton.setText("About");
+		aboutButton.setFont(new Font("Arial", Font.ITALIC, 25));
 		
 		pnachPanel=new JPanel();
 		pnachPanel.setLayout(new BorderLayout());
-		pnachPanel.add(pnachButton,BorderLayout.NORTH);
+		pnachPanel.add(pnachButton,BorderLayout.SOUTH);
+		pnachPanel.add(aboutButton,BorderLayout.CENTER);
 		
 		frame.add(pnachPanel,BorderLayout.NORTH);
 		
@@ -79,6 +88,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 			hintButtons[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			hintButtons[i].setText("Secret Ansem Report #"+(i+1));
 			hintButtons[i].setFont(new Font("Arial",Font.PLAIN,30));
+			hintButtons[i].setEnabled(false);
 			hintPanel.add(hintButtons[i]);
 		}
 		
@@ -294,6 +304,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		
 		for(World world:worlds) {
 			world.fixLevel();
+			world.updatePriority();
 		}
 		
 		}catch(IOException io) {
@@ -308,11 +319,41 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		if(e.getSource()==pnachButton) {
 			try {
 				readPnach();
+				
+				worldOrder=worlds;
+				worldOrder.remove(worldOrder.size()-1);
+				Collections.sort(worldOrder);
+				
+				for(int i=0; i<13; i++) {
+					hintButtons[i].setEnabled(true);
+				}
+				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
+			for(World world:worlds) {
+				System.out.print(world.name+": ");
+				for(int pool:world.poolItems)
+					System.out.print(pool+" ");
+				System.out.println();
+			}
+			
+			
 		}//end pnachButton
+		
+		else if(e.getSource()==aboutButton) {
+			JDialog aboutBox=new JDialog(frame, "About");
+			aboutBox.setSize(500,500);
+			String text="[Path of Light] 4 items\n Promise Charm\n Proof of Nonexistance\n Proof of Connection\n Proof of Tranquility\n \n [Goofy's Choice] 10 items\n Valor Form\n Cure Element x3\n Reflect Element x3\n Magnet Element x3\n \n [Donald's Choice] 10 items\n Wisdom Form\n Fire Element x3\n Blizzard Element x3\n Thunder Element x3\n \n [Merlin's Choice] 9 items\n Torn Page x5\n Baseball Charm\n Lamp Charm\n Ukelele Charm\n Feather Charm\n \n [Roxas' Choice] 11 items\n Final Form\n Light and Dark\n Scan x2\n Guard\n Aerial Recovery\n Second Chance\n Once More\n Combo Master\n Finishing Plus x2\n \n [Riku's Choice] 8 items\n Limit Form\n Explosion\n Guard Break\n Flash Step\n Slide Dash\n Finishing Dive\n Combo Boost x2\n \n [Kairi's Choice] 8 items\n Master Form\n Aerial Finish\n Magnet Splash\n Aerial Spiral\n Aerial Dive\n Horizontal Slash\n Air Combo Boost x2\n \n";
+			JTextArea aboutBlurb=new JTextArea(text);
+			JScrollPane scroll=new JScrollPane(aboutBlurb, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			aboutBlurb.setEditable(false);
+			aboutBlurb.setFont(new Font("Arial",Font.PLAIN,20));
+			aboutBox.add(scroll);
+			aboutBox.setVisible(true);
+		}//end aboutButton
 		
 	}
 
@@ -333,7 +374,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		
 		for(int i=0; i<13; i++) {
 			if(e.getSource()==hintButtons[i]) {
-				
+				hintButtons[i].setText(worldOrder.get(i).getReportInfo());
 			}//end source if
 		}//end outer for loop
 	}//end mouseReleased
