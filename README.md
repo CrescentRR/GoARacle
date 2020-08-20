@@ -3,15 +3,12 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## Plans
 
--Create executable file.
+-Create executable file.  Please if you know how to make one with all of the files please let me know.
 
-(Plans subject to change)
 
 ## Changelog
 
-8/20/20 1:20pm: Completed usable demo of hint generator.  Not an executable, but it still should run without needing to fix code.  
-
-8/20/20: Implemented skeleton of UI, moved World and Pool objects to seperate class files.  Created updated pool (Ideas for Pools.txt for more info)
+8/20/20: Completed usable demo of hint generator.  Not an executable, but it still should run without needing to fix code.  
 
 ## Special Thanks
 
