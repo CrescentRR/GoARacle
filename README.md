@@ -3,8 +3,9 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## Plans
 
--Create executable file.  Please if you know how to make one with all of the files please let me know.
+-Anti-Cheat.  Checks to make sure that if actually found the report by asking where you found it.  Thinking of brute forcing it during a race?  Try to look natural staying still during a race.  No one will suspect a thing.
 
+-Create executable file.  Please if you know how to make one with all of the files please let me know.
 
 ## Changelog
 
