@@ -1,29 +1,29 @@
-[Path of Light] 4 items
+[Path of Light] 4 items, 100PC
 Promise Charm
 Proof of Nonexistance
 Proof of Connection
 Proof of Tranquility
 
-[Goofy's Choice] 10 items
+[Goofy's Choice] 10 items, 33PC
 Valor Form
 Cure Element x3
 Reflect Element x3
 Magnet Element x3
 
-[Donald's Choice] 10 items
+[Donald's Choice] 10 items, 33PC
 Wisdom Form
 Fire Element x3
 Blizzard Element x3
 Thunder Element x3
 
-[Merlin's Choice] 9 items
+[Merlin's Choice] 9 items, 33PC
 Torn Page x5
 Baseball Charm
 Lamp Charm
 Ukelele Charm
 Feather Charm
 
-[Roxas' Choice] 11 items
+[Roxas' Choice] 13 items, 25PC
 Final Form
 Light and Dark
 Scan x2
@@ -32,9 +32,10 @@ Aerial Recovery
 Second Chance
 Once More
 Combo Master
-Finishing Plus x2
+Finishing Plus x3
+Counterguard
 
-[Riku's Choice] 8 items
+[Riku's Choice] 10 items, 25PC
 Limit Form
 Explosion
 Guard Break
@@ -42,8 +43,10 @@ Flash Step
 Slide Dash
 Finishing Dive
 Combo Boost x2
+Slapshot
+Round Break
 
-[Kairi's Choice] 8 items
+[Kairi's Choice] 10 items, 25PC
 Master Form
 Aerial Finish
 Magnet Splash
@@ -51,9 +54,25 @@ Aerial Spiral
 Aerial Dive
 Horizontal Slash
 Air Combo Boost x2
+Negative Combo x2
 
-[King Mickey's Choice] 9 items
+[King Mickey's Choice] 9 items, 20PC
 Trinity Limit
 Negative Combo x2
 Combo Plus x3
 Air Combo Plus x3
+
+[Reports] 13 items, 13PC
+Secret Ansem's Report 1
+Secret Ansem's Report 2
+Secret Ansem's Report 3
+Secret Ansem's Report 4
+Secret Ansem's Report 5
+Secret Ansem's Report 6
+Secret Ansem's Report 7
+Secret Ansem's Report 8
+Secret Ansem's Report 9
+Secret Ansem's Report 10
+Secret Ansem's Report 11
+Secret Ansem's Report 12
+Secret Ansem's Report 13
