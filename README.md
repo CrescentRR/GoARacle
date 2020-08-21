@@ -8,6 +8,8 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## Changelog
 
+8/20/20 8:15pm EST: Fixed sorting.  Now counts reports in priority score count.  Visible priority score for a rough estimate of what is in each world/for testing.  About button now shows reports and priority score (PC) next to each pool.  
+
 8/20/20: Completed usable demo of hint generator.  Not an executable, but it still should run without needing to fix code.  
 
 ## Special Thanks
