@@ -1,0 +1,81 @@
+[Path of Light]
+100
+020C
+0251
+0252
+0253
+[Goofy's Choice]
+33
+001A
+0018
+0057
+0058
+[Donald's Choice]
+33
+001B
+0015
+0016
+0017
+[Merlin's Choice]
+33
+017F
+0019
+009F
+00A0
+0020
+[Roxas's Choice]
+25
+001D
+021D
+008A
+0052
+009E
+019F
+01A0
+021B
+0189
+010C
+[Riku's Choice]
+25
+0233
+010A
+0109
+022F
+0108
+010B
+0186
+0106
+0232
+[Kairi's Choice]
+25
+001F
+0110
+0231
+010E
+0230
+010F
+0187
+018B
+[King Mickey's Choice]
+20
+006C
+018A
+00A2
+00A3
+[Reports]
+13
+00E2
+00E3
+00E4
+00E5
+00E6
+00E7
+00E8
+00E9
+00EA
+00EB
+00EC
+00ED
+00EE
+{Terminate}
+-1

@@ -4,19 +4,6 @@ import java.awt.event.*;
 import java.io.*; //For BufferedReader and FileReader
 import javax.swing.*; //For file selection
 import javax.swing.filechooser.*; //For only showing PNACH files on file choice
-import javax.swing.plaf.metal.MetalToggleButtonUI;
-
-/*
- * To Do:
- * 
- * -Discuss balance
- * -Develop hint checking system
- * 
- * -Improvements:
- * 		Make case in readPnach for user not selecting their pnach file
- * 
- */
-
 
 
 public class GoARacle extends JPanel implements ActionListener, MouseListener{
@@ -27,7 +14,6 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 	static ArrayList<Pool> pools; //All pool items by pool
 	static Report[] reports;
 	static ArrayList<World> worldOrder;
-	
 	
 	JFrame frame;
 	
@@ -46,8 +32,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		for(int i=0; i<13; i++) {
 			reports[i]=new Report(i);
 		}
-		worlds=generateWorlds("Locations.txt");
-		pools=generatePools("Pools.txt");
+		worlds=generateWorlds();
+		pools=generatePools();
 		
 		
 		
@@ -87,7 +73,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 			hintButtons[i].setBackground(Color.WHITE);
 			hintButtons[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			hintButtons[i].setText("Secret Ansem Report #"+(i+1));
-			hintButtons[i].setFont(new Font("Arial",Font.PLAIN,30));
+			hintButtons[i].setFont(new Font("Arial",Font.PLAIN,20));
 			hintButtons[i].setEnabled(false);
 			hintPanel.add(hintButtons[i]);
 		}
@@ -145,7 +131,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		
 	}//end Report class
 	
-	public static ArrayList<World> generateWorlds(String locationFile) throws FileNotFoundException{
+	public static ArrayList<World> generateWorlds() throws FileNotFoundException{
 		
 		//Generates check locations from Locations.txt, saving it within an ArrayList of Worlds
 		
@@ -153,7 +139,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		ArrayList<World> output=new ArrayList<>();
 		
 		try {
-			BufferedReader input=new BufferedReader(new FileReader(locationFile));
+			BufferedReader input=new BufferedReader(new FileReader("resources/Locations.txt"));
 			
 			String text="";
 			String name="";
@@ -202,13 +188,13 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		
 	}//end generateWorlds
 	
-	public static ArrayList<Pool> generatePools(String poolFile) throws FileNotFoundException{
+	public static ArrayList<Pool> generatePools() throws FileNotFoundException{
 		
 		ArrayList<Pool> output=new ArrayList<>();
 		
 		try {
 			
-			BufferedReader input=new BufferedReader(new FileReader(poolFile));
+			BufferedReader input=new BufferedReader(new FileReader("resources/Pools.txt"));
 			
 			String text="";
 			String name="";
@@ -248,7 +234,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		
 	}//end generatePools
 	
-	public static void readPnach() throws IOException{
+	public void readPnach() throws IOException{
 		
 		try {
 		
@@ -267,7 +253,15 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 				readPnach();
 				return;
 			}
-				
+			
+
+			
+			
+			for(int i=0; i<13; i++) {
+				hintButtons[i].setEnabled(true);
+			}
+			
+			
 			
 			BufferedReader input=new BufferedReader(new FileReader(jfc.getSelectedFile()));
 			
@@ -320,13 +314,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 			try {
 				readPnach();
 				
-				worldOrder=worlds;
-				worldOrder.remove(worldOrder.size()-1);
-				Collections.sort(worldOrder);
 				
-				for(int i=0; i<13; i++) {
-					hintButtons[i].setEnabled(true);
-				}
 				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -341,6 +329,27 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 			}*/
 			
 			
+			worldOrder=worlds;
+			worldOrder.remove(worldOrder.size()-1);
+			
+			int index;
+			int highest;
+			World temp;
+			for(int i=0; i<worldOrder.size()-1; i++) {
+				index=i;
+				highest=worldOrder.get(index).priorityScore;
+				for(int p=i+1; p<worldOrder.size(); p++) {
+					if(worldOrder.get(p).priorityScore>highest) {
+						index=p;
+						highest=worldOrder.get(p).priorityScore;
+					}
+				}
+				temp=worldOrder.get(i);
+				worldOrder.set(i, worldOrder.get(index));
+				worldOrder.set(index, temp);
+			}
+			
+			
 		}//end pnachButton
 		
 		else if(e.getSource()==aboutButton) {
@@ -350,7 +359,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 			String text="";
 			String line="";
 			try {
-				BufferedReader file=new BufferedReader(new FileReader("Pool Meaning.txt"));
+				BufferedReader file=new BufferedReader(new FileReader("resources/Pool Meaning.txt"));
 				
 				while((line=file.readLine())!=null) {
 					text+=line+"\n";
@@ -393,6 +402,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		for(int i=0; i<13; i++) {
 			if(e.getSource()==hintButtons[i]) {
 				hintButtons[i].setText(worldOrder.get(i).getReportInfo());
+				hintButtons[i].setEnabled(false);
 			}//end source if
 		}//end outer for loop
 	}//end mouseReleased

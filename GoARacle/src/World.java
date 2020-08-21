@@ -30,7 +30,7 @@ public class World implements Comparable<World>{
 	public void updatePriority() {
 		int highestPriorityNum=0;
 		int hpi=0;
-		for(int i=0; i<poolItems.length-1; i++) {
+		for(int i=0; i<poolItems.length; i++) {
 			priorityScore+=poolItems[i]*pools.get(i).priority;
 			if(poolItems[i]*pools.get(i).priority>highestPriorityNum) {
 				highestPriorityNum=poolItems[i]*pools.get(i).priority;
@@ -79,6 +79,8 @@ public class World implements Comparable<World>{
 			else output+="in ";
 			output+=this.name;
 		}
+		
+		output+=": Priority Score "+priorityScore;
 		
 		return output;
 
