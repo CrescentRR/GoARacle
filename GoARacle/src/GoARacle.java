@@ -329,7 +329,13 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 			}*/
 			
 			
-			worldOrder=worlds;
+			
+			
+			worldOrder=new ArrayList<World>();
+			
+			for(World world:worlds)
+				worldOrder.add(world);
+			
 			worldOrder.remove(worldOrder.size()-1);
 			
 			int index;
@@ -401,8 +407,23 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		
 		for(int i=0; i<13; i++) {
 			if(e.getSource()==hintButtons[i]) {
+				
+				String[] choices=new String[worlds.size()];
+				
+				String correctAnswer=reports[i].loc;
+				
+				for(int p=0; p<choices.length; p++) {
+					choices[p]=worlds.get(p).name;
+				}
+				
+				String answer=(String) JOptionPane.showInputDialog(null, "Where did you find Report #"+(i+1)+"?",
+						"Worlds",JOptionPane.QUESTION_MESSAGE,null, choices, choices[0]);
+				
+				if(answer.equals(correctAnswer)) {
+				
 				hintButtons[i].setText(worldOrder.get(i).getReportInfo());
 				hintButtons[i].setEnabled(false);
+				}//end check for correct answer
 			}//end source if
 		}//end outer for loop
 	}//end mouseReleased
