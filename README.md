@@ -3,11 +3,11 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## Plans
 
--Anti-Cheat.  Checks to make sure that if actually found the report by asking where you found it.  Thinking of brute forcing it during a race?  Try to look natural staying still during a race.  No one will suspect a thing.
-
 -Create executable file.  Please if you know how to make one with all of the files please let me know.
 
 ## Changelog
+
+8/22/20: Added anti-cheat.  When clicking on a report button, brings up a box to check where that report was.  If answered correctly, replaces the button with the hint.  If answered incorrectly, nothing happens.  Trying to brute force it is not really worth it, though possible.  Might be something to look at, if people ask for it.
 
 8/20/20 8:15pm EST: Fixed sorting.  Now counts reports in priority score count.  Visible priority score for a rough estimate of what is in each world/for testing.  About button now shows reports and priority score (PC) next to each pool.  
 
