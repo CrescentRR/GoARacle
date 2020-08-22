@@ -417,7 +417,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 				}
 				
 				String answer=(String) JOptionPane.showInputDialog(null, "Where did you find Report #"+(i+1)+"?",
-						"Worlds",JOptionPane.QUESTION_MESSAGE,null, choices, choices[0]);
+						"Report Check",JOptionPane.QUESTION_MESSAGE,null, choices, choices[0]);
 				
 				if(answer.equals(correctAnswer)) {
 				
