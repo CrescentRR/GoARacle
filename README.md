@@ -3,6 +3,10 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## Plans
 
+-General bugfixes, in particular disabling functionality of the buttons after entering a report, possibly preventing the colors from changing when being clicked (not a bug but annoying).
+
+-3 strikes for anti-cheat.  Have to differentiate from closing the window and not giving an answer, but that shouldn't be an issue.  
+
 -Create executable file.  Please if you know how to make one with all of the files please let me know.
 
 ## Changelog
@@ -23,5 +27,3 @@ And use it here: https://jsmartee.github.io/kh2fm-hints-demo/
 
 Thanks to Valaxor for the input during initial thoughts, without it there would be quite a lot of backtracking, but now I have a better idea of what I want to do.
 Val's the amazing creator of the seed generator site!  Check it out here: https://randomizer.valaxor.com/#/seed
-
-
