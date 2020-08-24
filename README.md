@@ -1,13 +1,29 @@
 # GoARacle
 Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
-## Plans
+## How to use
 
--General bugfixes
+-Download the repo as a zip and boot up "GoARacle.jar"
 
--Balance changes with help of feedback
+-Click on "Select Seed" and navigate to your pnach seed file and select it.
 
--Create executable file.  Please if you know how to make one with all of the files please let me know.
+-When you find a report, click on the corresponding button.  Pass the anti-cheat test to replace the button's text with your hint.  
+
+## Understanding the hints
+
+-Each hint has a similar format, barring "Path of Light": "[Person] recommends looking in [place]."
+
+-Each pool has something known as a Priority Score, which are a number of points assigned to each item in a respective pools.
+
+-In the About button, you can see the pools, their contents, and their priority score.
+
+-Reports are ordered from highest priority to lowest priority, meaning Report 1 is the best world in the seed, while Report 13 is the 13th best world in the seed.
+
+-The pool that appears in the hint is the highest priority pool in that world.  For example, a world with 1 "Path of Light" item and 5 "Roxas' Choice" items would say "Roxas recommends looking in [place]", as the comparison would be 100 Priority Score vs 125 Priority Score (Path of Light being worth 100 each, Roxas being worth 25 each)
+
+-In the event of a tie, a random pool in that tie is selected.
+
+-Use the spreadsheet included in the folder to track how much score is left in a world. "GoARacle Item Checklist.url"
 
 ## Changelog
 
@@ -22,6 +38,14 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 8/20/20 8:15pm EST: Fixed sorting.  Now counts reports in priority score count.  Visible priority score for a rough estimate of what is in each world/for testing.  About button now shows reports and priority score (PC) next to each pool.  
 
 8/20/20: Completed usable demo of hint generator.  Not an executable, but it still should run without needing to fix code.  
+
+## Plans
+
+-General bugfixes
+
+-Balance changes with help of feedback
+
+-Create executable file.  Please if you know how to make one with all of the files please let me know.
 
 ## Special Thanks
 
