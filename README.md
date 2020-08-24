@@ -3,13 +3,15 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## Plans
 
--General bugfixes, in particular disabling functionality of the buttons after entering a report, possibly preventing the colors from changing when being clicked (not a bug but annoying).
+-General bugfixes
 
--3 strikes for anti-cheat.  Have to differentiate from closing the window and not giving an answer, but that shouldn't be an issue.  
+-Balance changes with help of feedback
 
 -Create executable file.  Please if you know how to make one with all of the files please let me know.
 
 ## Changelog
+
+8/23/20 9:45pm EST: Added 3 strikes for anti-cheat to discourage brute-forcing.  Fixed being able to interact with report buttons after passing the check OR failing the test multiple times.
 
 8/23/20: Created a Google Sheets spreadsheet for recording your findings.  Makes it easier to track the current score of items you have, giving you a better idea of how much there still is to find.  You can find it here: https://docs.google.com/spreadsheets/d/1pRdCDJb4bGSOApkjolcLxP5RfyjV2Gn_DfR7Aoo56ZY/edit?usp=sharing and in the application folder, called "GoARacle Item Checklist" as a shortcut.
 
