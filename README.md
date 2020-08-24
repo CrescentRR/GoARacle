@@ -9,6 +9,8 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 -When you find a report, click on the corresponding button.  Pass the anti-cheat test to replace the button's text with your hint.  
 
+-When you start your run, look at Jiminey's Journal to see if there are any Reports.  Any reports gotten from Critical Mode bonuses or the Garden of Remembrance have the location "Critical Rewards and Garden", located at the end of the location list.
+
 ## Understanding the hints
 
 -Each hint has a similar format, barring "Path of Light": "[Person] recommends looking in [place]."
