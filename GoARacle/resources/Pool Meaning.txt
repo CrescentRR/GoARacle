@@ -1,29 +1,29 @@
-[Path of Light] 4 items, 100PC
+[Path of Light] 4 items, 100 Priority Score
 Promise Charm
 Proof of Nonexistance
 Proof of Connection
 Proof of Tranquility
 
-[Goofy's Choice] 10 items, 33PC
+[Goofy's Choice] 10 items, 33 Priority Score
 Valor Form
 Cure Element x3
 Reflect Element x3
 Magnet Element x3
 
-[Donald's Choice] 10 items, 33PC
+[Donald's Choice] 10 items, 33 Priority Score
 Wisdom Form
 Fire Element x3
 Blizzard Element x3
 Thunder Element x3
 
-[Merlin's Choice] 9 items, 33PC
+[Merlin's Choice] 9 items, 33 Priority Score
 Torn Page x5
 Baseball Charm
 Lamp Charm
 Ukelele Charm
 Feather Charm
 
-[Roxas' Choice] 13 items, 25PC
+[Roxas' Choice] 13 items, 25 Priority Score
 Final Form
 Light and Dark
 Scan x2
@@ -35,7 +35,7 @@ Combo Master
 Finishing Plus x3
 Counterguard
 
-[Riku's Choice] 10 items, 25PC
+[Riku's Choice] 10 items, 25 Priority Score
 Limit Form
 Explosion
 Guard Break
@@ -46,7 +46,7 @@ Combo Boost x2
 Slapshot
 Round Break
 
-[Kairi's Choice] 10 items, 25PC
+[Kairi's Choice] 10 items, 25 Priority Score
 Master Form
 Aerial Finish
 Magnet Splash
@@ -56,13 +56,13 @@ Horizontal Slash
 Air Combo Boost x2
 Berserk Charge x2
 
-[King Mickey's Choice] 9 items, 20PC
+[King Mickey's Choice] 9 items, 20 Priority Score
 Trinity Limit
 Negative Combo x2
 Combo Plus x3
 Air Combo Plus x3
 
-[Reports] 13 items, 13PC
+[Reports] 13 items, 13 Priority Score
 Secret Ansem's Report 1
 Secret Ansem's Report 2
 Secret Ansem's Report 3
