@@ -41,6 +41,8 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## Plans
 
+-Change the tiebreaker to be seeded in some way, either through seed name or something else.  Depends on how leagues prepare their seeds.
+
 -General bugfixes
 
 -Balance changes with help of feedback
