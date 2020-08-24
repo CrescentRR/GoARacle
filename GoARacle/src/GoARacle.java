@@ -14,6 +14,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 	static ArrayList<Pool> pools; //All pool items by pool
 	static Report[] reports;
 	static ArrayList<World> worldOrder;
+	static int[] attempts;
 	
 	JFrame frame;
 	
@@ -35,7 +36,10 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 		worlds=generateWorlds();
 		pools=generatePools();
 		
-		
+		attempts=new int[worlds.size()-1];
+		for(int i=0; i<attempts.length; i++) {
+			attempts[i]=0;
+		}
 		
 		frame=new JFrame("GoARacle Beta by CrescentRR");
 		frame.add(this);
@@ -406,7 +410,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 	public void mouseReleased(MouseEvent e) {
 		
 		for(int i=0; i<13; i++) {
-			if(e.getSource()==hintButtons[i]) {
+			if(e.getSource()==hintButtons[i]&&hintButtons[i].isEnabled()&&attempts[i]!=3) {
 				
 				String[] choices=new String[worlds.size()];
 				
@@ -416,14 +420,17 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 					choices[p]=worlds.get(p).name;
 				}
 				
-				String answer=(String) JOptionPane.showInputDialog(null, "Where did you find Report #"+(i+1)+"?",
-						"Report Check",JOptionPane.QUESTION_MESSAGE,null, choices, choices[0]);
+				String answer=(String) JOptionPane.showInputDialog(null, "Where did you find Report #"+(i+1)+"?", //Creates pop-up window for location check
+						"Report #"+(i+1)+"Check: Attempt #"+(attempts[i]+1)+"/3",JOptionPane.QUESTION_MESSAGE,null, choices, choices[0]);
 				
 				if(answer.equals(correctAnswer)) {
 				
 				hintButtons[i].setText(worldOrder.get(i).getReportInfo());
 				hintButtons[i].setEnabled(false);
 				}//end check for correct answer
+				else {
+					attempts[i]++;
+				}
 			}//end source if
 		}//end outer for loop
 	}//end mouseReleased
