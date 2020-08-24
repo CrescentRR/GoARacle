@@ -78,6 +78,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 			hintButtons[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			hintButtons[i].setText("Secret Ansem Report #"+(i+1));
 			hintButtons[i].setFont(new Font("Arial",Font.PLAIN,20));
+			
 			hintButtons[i].setEnabled(false);
 			hintPanel.add(hintButtons[i]);
 		}
@@ -245,7 +246,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener{
 	
 		JFileChooser jfc=new JFileChooser();
 		jfc.setDialogTitle("Select Seed File");
-		jfc.setCurrentDirectory(new File(System.getProperty("user.dir")));
+		jfc.setCurrentDirectory(new File(System.getProperty("user.home")+"/Desktop"));
 		
 		//jfc.addChoosableFileFilter(new FileNameExtensionFilter("PNACH files", "pnach"));
 		jfc.setFileFilter(new FileNameExtensionFilter("PNACH files", "pnach"));

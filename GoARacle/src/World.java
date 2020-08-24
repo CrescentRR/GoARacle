@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class World implements Comparable<World>{
 	String name; //Name of world/location of items
@@ -30,14 +31,28 @@ public class World implements Comparable<World>{
 	public void updatePriority() {
 		int highestPriorityNum=0;
 		int hpi=0;
+		
+		ArrayList<Integer> randomizeEqual=new ArrayList<>(); 
+		
 		for(int i=0; i<poolItems.length; i++) {
 			priorityScore+=poolItems[i]*pools.get(i).priority;
 			if(poolItems[i]*pools.get(i).priority>highestPriorityNum) {
 				highestPriorityNum=poolItems[i]*pools.get(i).priority;
 				hpi=i;
+				randomizeEqual.clear();
+				randomizeEqual.add(hpi);
+			}
+			else if(poolItems[i]*pools.get(i).priority==highestPriorityNum) {
+				randomizeEqual.add(i);
 			}
 		}
-		highestPriorityIndex=hpi;
+		
+		if(randomizeEqual.size()>1) {
+			Collections.shuffle(randomizeEqual);
+			highestPriorityIndex=randomizeEqual.get(0);
+		}
+		
+		else highestPriorityIndex=hpi;
 	}
 	
 	public String getReportInfo() {
@@ -48,15 +63,17 @@ public class World implements Comparable<World>{
 		
 		String output="";	
 		String temp="";
-		if(pools.get(highestPriorityIndex).name.contains("'s Choice")) {
-			temp=pools.get(highestPriorityIndex).name.substring(0,pools.get(highestPriorityIndex).name.length()-9);
-			temp+=" recommends looking ";
+		
+		if(pools.get(highestPriorityIndex).name.equals("Path of Light")) {
+			temp="The Path of Light leads ";
 		}
+
 		else if(pools.get(highestPriorityIndex).name.equals("Reports")) {
 			temp="Ansem the Wise left hints ";
 		}
-		else if(pools.get(highestPriorityIndex).name.equals("Path of Light")) {
-			temp="The Path of Light leads ";
+		else if(pools.get(highestPriorityIndex).name.contains("'s Choice")) {
+			temp=pools.get(highestPriorityIndex).name.substring(0,pools.get(highestPriorityIndex).name.length()-9);
+			temp+=" recommends looking ";
 		}
 		
 		output+=temp;
