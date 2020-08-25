@@ -51,7 +51,7 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 -Balance changes with help of feedback
 
--Create executable file.  Please if you know how to make one with all of the files please let me know.
+-HOLY SHIT I FOUND OUT HOW TO MAKE AN EXECUTABLE.  Well, expect a release with the installer then.  I love this.
 
 ## Special Thanks
 
