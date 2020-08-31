@@ -51,9 +51,7 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 -Ability to input custom seeds for customization in races/leagues.
 
--In-app checklist, with each Report's priority score being Remaining PS.  Makes it easier to track items without needing the Google Sheets doc.
-
--General bugfixes (such as being able to input seeds multiple times [just going to disable the button after successfully loading the seed]).
+-General bugfixes 
 
 -Balance changes with help of feedback
 
@@ -69,3 +67,5 @@ Thanks to Valaxor for the input during initial thoughts, without it there would 
 Val's the amazing creator of the seed generator site!  Check it out here: https://randomizer.valaxor.com/#/seed
 
 Thanks to "Key (Shrug)" on Discord for his input and feedback on the generator during designing.  Always appreciated, and good luck on your races.
+
+Thanks to "HPfunman" on Discord for his bug reports.  I'm really good at making spaghetti, and man is he good at gobbling it up and spitting it back out.
