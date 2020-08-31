@@ -62,7 +62,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			}
 		}
 		
-		frame=new JFrame("GoARacle Beta by CrescentRR");
+		frame=new JFrame("GoARacle by CrescentRR: 8/31/20 Revision");
 		frame.add(this);
 		frame.setSize(1000,1250);
 		
@@ -71,13 +71,13 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		pnachButton.addActionListener(this);
 		pnachButton.setPreferredSize(new Dimension(10,46));
 		pnachButton.setText("Select Seed");
-		pnachButton.setFont(new Font("Arial", Font.ITALIC, 25));
+		
 		
 		poolButton=new JButton();
 		poolButton.addActionListener(this);
 		poolButton.setPreferredSize(new Dimension(10,46));
 		poolButton.setText("Coming Soon...");
-		poolButton.setFont(new Font("Arial", Font.ITALIC, 25));
+		
 		poolButton.setEnabled(false); //REMOVE THIS WHEN IMPLEMENTING
 		
 		topPanel=new JPanel();
@@ -89,14 +89,17 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		aboutButton.addActionListener(this);
 		aboutButton.setPreferredSize(new Dimension(10,46));
 		aboutButton.setText("About");
-		aboutButton.setFont(new Font("Arial", Font.ITALIC, 25));
+		
 		
 		markButton=new JButton();
 		markButton.addActionListener(this);
 		markButton.setPreferredSize(new Dimension(10,46));
 		markButton.setText("Mark Off");
-		markButton.setFont(new Font("Arial", Font.ITALIC, 25));
+		
 		markButton.setEnabled(false);
+		
+		
+		
 		
 		botPanel=new JPanel();
 		botPanel.setLayout(new BorderLayout());
@@ -117,18 +120,37 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 		hintButtons=new JToggleButton[13];
 		
+		try {
+		
 		for(int i=0; i<13; i++) {
 			hintButtons[i]=new JToggleButton();
 			hintButtons[i].addMouseListener(this);
 			hintButtons[i].setPreferredSize(new Dimension(1,1));
 			hintButtons[i].setBackground(Color.WHITE);
 			hintButtons[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-			hintButtons[i].setText("Secret Ansem Report #"+(i+1));
-			hintButtons[i].setFont(new Font("Arial",Font.PLAIN,20));
+			hintButtons[i].setText("Secret Ansem Report "+(i+1));
+			hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
 			
 			hintButtons[i].setEnabled(false);
 			hintPanel.add(hintButtons[i]);
 		}
+		
+		
+			pnachButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,25));
+			poolButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,25));
+			aboutButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,25));
+			markButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,25));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		
 		frame.add(hintPanel,BorderLayout.CENTER);
@@ -526,7 +548,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	public void mouseReleased(MouseEvent e) {
 		
 		for(int i=0; i<13; i++) {
-			if(e.getSource()==hintButtons[i]&&hintButtons[i].isEnabled()&&attempts[i]!=3) {
+			if(e.getSource()==hintButtons[i]&&hintButtons[i].isEnabled()&&attempts[i]<3) {
 				
 				String[] choices=new String[worlds.size()];
 				
@@ -542,7 +564,17 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				if(answer.equals(correctAnswer)) {
 				
 				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i)))));
-				hintButtons[i].setEnabled(false);
+				try {
+					hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,12));
+				} catch (FontFormatException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				//hintButtons[i].setEnabled(false);
+				hintButtons[i].setBackground(Color.WHITE);
+				hintButtons[i].setForeground(Color.BLACK);
+				hintButtons[i].setContentAreaFilled(false);
+				attempts[i]=13;
 				}//end check for correct answer
 				else {
 					attempts[i]++;
