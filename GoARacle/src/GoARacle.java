@@ -25,13 +25,13 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	
 	JButton pnachButton;
 	JButton poolButton;
-	JPanel topPanel;
+	//JPanel topPanel;
 	JButton aboutButton;
 	JButton markButton;
-	JPanel botPanel;
+	//JPanel botPanel;
 	JPanel pnachPanel;
 	
-	JToggleButton[] hintButtons;
+	ColorToggleButton[] hintButtons;
 	JPanel hintPanel;
 	
 	public GoARacle() throws FileNotFoundException {
@@ -65,69 +65,86 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		frame=new JFrame("GoARacle by CrescentRR: 8/31/20 Revision");
 		frame.add(this);
 		frame.setSize(1000,1250);
+		frame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
 		
 		
 		pnachButton=new JButton();
 		pnachButton.addActionListener(this);
 		pnachButton.setPreferredSize(new Dimension(10,46));
+		pnachButton.setBackground(Color.decode("#2C2F33"));
+		pnachButton.setForeground(Color.WHITE);
+		pnachButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		pnachButton.setText("Select Seed");
 		
 		
 		poolButton=new JButton();
 		poolButton.addActionListener(this);
 		poolButton.setPreferredSize(new Dimension(10,46));
+		poolButton.setBackground(Color.decode("#2C2F33"));
+		poolButton.setForeground(Color.WHITE);
+		poolButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		poolButton.setText("Coming Soon...");
 		
 		poolButton.setEnabled(false); //REMOVE THIS WHEN IMPLEMENTING
 		
-		topPanel=new JPanel();
-		topPanel.setLayout(new BorderLayout());
-		topPanel.add(pnachButton,BorderLayout.NORTH);
-		topPanel.add(poolButton,BorderLayout.CENTER);
-		
+		/*topPanel=new JPanel();
+		topPanel.setLayout(new GridLayout(2,2,3,3));
+		topPanel.add(pnachButton);//,BorderLayout.NORTH
+		topPanel.add(poolButton);//,BorderLayout.CENTER
+		*/
 		aboutButton=new JButton();
 		aboutButton.addActionListener(this);
 		aboutButton.setPreferredSize(new Dimension(10,46));
+		aboutButton.setBackground(Color.decode("#2C2F33"));
+		aboutButton.setForeground(Color.WHITE);
+		aboutButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		aboutButton.setText("About");
 		
 		
 		markButton=new JButton();
 		markButton.addActionListener(this);
 		markButton.setPreferredSize(new Dimension(10,46));
+		markButton.setBackground(Color.decode("#2C2F33"));
+		markButton.setForeground(Color.WHITE);
+		markButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		markButton.setText("Mark Off");
 		
 		markButton.setEnabled(false);
 		
 		
 		
-		
+		/*
 		botPanel=new JPanel();
 		botPanel.setLayout(new BorderLayout());
 		botPanel.add(aboutButton, BorderLayout.NORTH);
 		botPanel.add(markButton, BorderLayout.CENTER);
-		
+		*/
 		pnachPanel=new JPanel();
-		pnachPanel.setLayout(new BorderLayout());
+		pnachPanel.setLayout(new GridLayout(2,2,3,3));
+		pnachPanel.add(pnachButton);
+		pnachPanel.add(poolButton);
+		pnachPanel.add(aboutButton);
+		pnachPanel.add(markButton);
 		/*pnachPanel.add(pnachButton,BorderLayout.SOUTH);
 		pnachPanel.add(aboutButton,BorderLayout.CENTER);*/
-		pnachPanel.add(topPanel,BorderLayout.NORTH);
-		pnachPanel.add(botPanel,BorderLayout.CENTER);
+		//pnachPanel.add(topPanel,BorderLayout.NORTH);
+		//pnachPanel.add(botPanel,BorderLayout.CENTER);
 		
 		frame.add(pnachPanel,BorderLayout.NORTH);
 		
 		hintPanel=new JPanel();
 		hintPanel.setLayout(new GridLayout(13,1));
 		
-		hintButtons=new JToggleButton[13];
+		hintButtons=new ColorToggleButton[13];
 		
 		try {
 		
 		for(int i=0; i<13; i++) {
-			hintButtons[i]=new JToggleButton();
+			hintButtons[i]=new ColorToggleButton();
 			hintButtons[i].addMouseListener(this);
 			hintButtons[i].setPreferredSize(new Dimension(1,1));
-			hintButtons[i].setBackground(Color.WHITE);
-			hintButtons[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			//hintButtons[i].setBackground(Color.WHITE);
+			hintButtons[i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
 			hintButtons[i].setText("Secret Ansem Report "+(i+1));
 			hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
 			
@@ -503,6 +520,12 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 						spinners.get(w).set(p,addLabeledSpinner(pools.get(p).name,snm));
 						spinners.get(w).get(p).addChangeListener(this);
 						JLabel label=new JLabel(pools.get(p).name);
+						try {
+							label.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
+						} catch (FontFormatException | IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						spinnerBox.add(label);
 						spinnerBox.add(spinners.get(w).get(p));
 					}
@@ -547,7 +570,15 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		
+		
+		
+		
 		for(int i=0; i<13; i++) {
+			
+			if(hintButtons[i].isSelected()) {
+				hintButtons[i].doClick();	
+			}
+			
 			if(e.getSource()==hintButtons[i]&&hintButtons[i].isEnabled()&&attempts[i]<3) {
 				
 				String[] choices=new String[worlds.size()];
@@ -559,7 +590,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				}
 				
 				String answer=(String) JOptionPane.showInputDialog(null, "Where did you find Report #"+(i+1)+"?", //Creates pop-up window for location check
-						"Report #"+(i+1)+"Check: Attempt #"+(attempts[i]+1)+"/3",JOptionPane.QUESTION_MESSAGE,null, choices, choices[0]);
+						"Report #"+(i+1)+" Check: Attempt #"+(attempts[i]+1)+"/3",JOptionPane.QUESTION_MESSAGE,null, choices, choices[0]);
 				
 				if(answer.equals(correctAnswer)) {
 				
@@ -571,16 +602,27 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 					e1.printStackTrace();
 				}
 				//hintButtons[i].setEnabled(false);
-				hintButtons[i].setBackground(Color.WHITE);
-				hintButtons[i].setForeground(Color.BLACK);
-				hintButtons[i].setContentAreaFilled(false);
+				//hintButtons[i].setBackground(Color.WHITE);
+				//hintButtons[i].setForeground(Color.BLACK);
+				//hintButtons[i].setContentAreaFilled(false);
+				
 				attempts[i]=13;
+				
+				
 				}//end check for correct answer
 				else {
 					attempts[i]++;
+					
 				}
 			}//end source if
 		}//end outer for loop
+		
+		for(int i=0; i<hintButtons.length; i++) {
+			if(hintButtons[i].isSelected()) {
+				hintButtons[i].doClick();	
+			}
+		}
+		
 		frame.revalidate();
 	}//end mouseReleased
 

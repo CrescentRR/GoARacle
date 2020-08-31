@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\Users\zyont\eclipse-workspace\GoARacle\icon\struggle_trophy_crystal_khii_lNH_icon.ico</icon>
+  <icon>C:\Users\zyont\eclipse-workspace\GoARacle\icon\Struggle_Trophy_Crystal_KHII.ico</icon>
   <classPath>
     <mainClass>GoARacle</mainClass>
     <cp>.</cp>
