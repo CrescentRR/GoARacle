@@ -62,7 +62,7 @@ Negative Combo x2
 Combo Plus x3
 Air Combo Plus x3
 
-[Reports] 13 items, 13 Priority Score
+[Reports] 13 items, 15 Priority Score
 Secret Ansem's Report 1
 Secret Ansem's Report 2
 Secret Ansem's Report 3

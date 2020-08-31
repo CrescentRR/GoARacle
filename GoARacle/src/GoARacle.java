@@ -507,7 +507,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			for(int w=0; w<worlds.size()-1; w++) {
 				if(answer.equals(worlds.get(w).name)) {
 					spinnerBox=new JDialog(frame, answer+" Checklist");
-					spinnerBox.setSize(500, 100*pools.size());
+					spinnerBox.setSize(700, 100*pools.size());
 					spinnerBox.setLayout(new GridLayout(checklists.get(0).size(),2,3,3));
 					for(int p=0; p<checklists.get(w).size(); p++) {
 						int min=0;
@@ -652,7 +652,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		}
 		
 		for(int i=0; i<hintButtons.length; i++) {
-			if(!hintButtons[i].isEnabled()&&attempts[i]!=3) {
+			if(attempts[i]==13) {
 				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i)))));
 			}
 		}
