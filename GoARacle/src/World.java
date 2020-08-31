@@ -55,7 +55,7 @@ public class World implements Comparable<World>{
 		else highestPriorityIndex=hpi;
 	}
 	
-	public String getReportInfo() {
+	public String getReportInfo(ArrayList<Integer> checklist) {
 		
 		if(this.priorityScore==0) {
 			return this.name+" has nothing but shadows.";
@@ -97,7 +97,13 @@ public class World implements Comparable<World>{
 			output+=this.name;
 		}
 		
-		output+=": Priority Score "+priorityScore;
+		int tempScore=priorityScore;
+		
+		for(int i=0; i<checklist.size(); i++) {
+			tempScore-=checklist.get(i)*pools.get(i).priority;
+		}
+		
+		output+=": Remaining Priority Score "+tempScore;
 		
 		return output;
 
