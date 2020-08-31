@@ -31,7 +31,7 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## Changelog
 
-8/31/20 2:49pm EST: Dark mode!  If you really liked the light mode, then tell me, I can always add in an option for it.  Made the icon of the window the same as the application.  Top buttons are now in a 2x2 grid.  When clicked, buttons now stay their original color.  
+8/31/20 2:49pm EST: Dark mode!  If you really liked the light mode, then tell me, I can always add in an option for it.  Made the icon of the window the same as the application.  Top buttons are now in a 2x2 grid.  When clicked, buttons now stay their original color.  Reports are now worth 15 points, from 13 for visibility of items in Donald, Goofy, and Merlin's pools.
 
 8/31/20 1:28pm EST: Changed the Font to KH font.  Made the color of the report buttons an off-white instead of blue (Swing default color, hard to change it).  Now not a beta! (The font was the main thing I wanted to complete before making it the full version, so I'm happy with calling this a full version.  
 
