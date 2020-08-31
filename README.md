@@ -3,11 +3,13 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## How to use
 
--Download the repo as a zip and boot up "GoARacle.jar"
+-Download the usable version at https://drive.google.com/drive/folders/1AdYmut-GKUkiOK6Q0mK0z9UO4AhbVoYd?usp=sharing and clicking on the path "GoARacle", then pressing the Download button to download the whole folder.  Extract the folder and launch "GoARacle.exe", which is the application with the blue crystal icon.
 
 -Click on "Select Seed" and navigate to your pnach seed file and select it.
 
 -When you find a report, click on the corresponding button.  Pass the anti-cheat test to replace the button's text with your hint.  
+
+-Mark off items you find by using the "Mark Off" button and choosing what location you would like to check off.
 
 -When you start your run, look at Jiminey's Journal to see if there are any Reports.  Any reports gotten from Critical Mode bonuses or the Garden of Remembrance have the location "Critical Rewards and Garden", located at the end of the location list.
 
@@ -25,9 +27,11 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 -In the event of a tie, a random pool in that tie is selected.
 
--Use the spreadsheet included in the folder to track how much score is left in a world. "GoARacle Item Checklist.url"
+-Use the Mark Off button to get a running count of how much priority score is needed in each world.
 
 ## Changelog
+
+8/31/20: Added the Mark Off button, which allows you to check off items you find as you play.  Fixed a bug where levels were not counted correctly.  Fixed a bug where you could input a seed multiple times and jack up the priority score.  
 
 8/23/20 10:34pm EST: Selecting the pnach file now starts at the Desktop instead of within the file's directory.  Made it so pools with equal priority score would randomize which one would show up.  Changed text in the About page that incorrectly stated that Kairi's pool contained Negative Combo, when it actually contains Berserk Charge.  Changed the units from "PC" to "Priority Score" to more accurately represent what it means.  
 
