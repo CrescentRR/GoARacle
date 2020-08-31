@@ -31,6 +31,8 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## Changelog
 
+8/31/20 1:28pm EST: Changed the Font to KH font.  Made the color of the report buttons an off-white instead of blue (Swing default color, hard to change it).  Now not a beta! (The font was the main thing I wanted to complete before making it the full version, so I'm happy with calling this a full version.  
+
 8/31/20: Added the Mark Off button, which allows you to check off items you find as you play.  Fixed a bug where levels were not counted correctly.  Fixed a bug where you could input a seed multiple times and jack up the priority score.  
 
 8/23/20 10:34pm EST: Selecting the pnach file now starts at the Desktop instead of within the file's directory.  Made it so pools with equal priority score would randomize which one would show up.  Changed text in the About page that incorrectly stated that Kairi's pool contained Negative Combo, when it actually contains Berserk Charge.  Changed the units from "PC" to "Priority Score" to more accurately represent what it means.  
