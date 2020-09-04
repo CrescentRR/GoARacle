@@ -32,17 +32,29 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 ## Changelog
 
 9/4/20: Reports now show how max priority score as well as remaining.  Changed window sizes (sorry if it's worse, hard to get a good window size for all).  Added a button for the Garden of Assemblage Map, giving you the 14th best world, might wanna look out for maps now!  
-  Pools:
-    Mickey's Choice:
+ 
+ Pools:
+   
+   Mickey's Choice:
+      
       REMOVED:
+       
         Combo Plus
-        Air Combo Plus
-      ADDED:
-        Fire Boost
-        Blizzard Boost
-        Thunder Boost
+       
+         Air Combo Plus
+     
+       ADDED:
+      
+         Fire Boost
+      
+         Blizzard Boost
+       
+         Thunder Boost
+    
     Reports:
+    
       ADDED: 
+      
         Garden of Assemblage Map
 
 8/31/20 4pm EST: Fixed an issue where using the Mark Off feature on a revealed report would not update it.
