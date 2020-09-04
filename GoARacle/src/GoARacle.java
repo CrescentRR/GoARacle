@@ -38,8 +38,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 		locationCodes=new ArrayList<String>();
 		poolCodes=new ArrayList<String>();
-		reports=new Report[13];
-		for(int i=0; i<13; i++) {
+		reports=new Report[14];
+		for(int i=0; i<14; i++) {
 			reports[i]=new Report(i);
 		}
 		worlds=generateWorlds();
@@ -64,7 +64,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 		frame=new JFrame("GoARacle by CrescentRR: 8/31/20 Revision");
 		frame.add(this);
-		frame.setSize(1000,1250);
+		frame.setSize(850,900);
 		frame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
 		
 		
@@ -133,19 +133,22 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		frame.add(pnachPanel,BorderLayout.NORTH);
 		
 		hintPanel=new JPanel();
-		hintPanel.setLayout(new GridLayout(13,1));
+		hintPanel.setLayout(new GridLayout(14,1));
 		
-		hintButtons=new ColorToggleButton[13];
+		hintButtons=new ColorToggleButton[14];
 		
 		try {
 		
-		for(int i=0; i<13; i++) {
+		for(int i=0; i<14; i++) {
 			hintButtons[i]=new ColorToggleButton();
 			hintButtons[i].addMouseListener(this);
 			hintButtons[i].setPreferredSize(new Dimension(1,1));
 			//hintButtons[i].setBackground(Color.WHITE);
 			hintButtons[i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
-			hintButtons[i].setText("Secret Ansem Report "+(i+1));
+			if(i==13) {
+				hintButtons[i].setText("Garden of Assemblage Map");
+			}
+			else hintButtons[i].setText("Secret Ansem Report "+(i+1));
 			hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
 			
 			hintButtons[i].setEnabled(false);
@@ -348,7 +351,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 
 			
 			
-			for(int i=0; i<13; i++) {
+			for(int i=0; i<hintButtons.length; i++) {
 				hintButtons[i].setEnabled(true);
 			}
 			
@@ -507,7 +510,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			for(int w=0; w<worlds.size()-1; w++) {
 				if(answer.equals(worlds.get(w).name)) {
 					spinnerBox=new JDialog(frame, answer+" Checklist");
-					spinnerBox.setSize(700, 100*pools.size());
+					spinnerBox.setSize(500, 50*pools.size());
 					spinnerBox.setLayout(new GridLayout(checklists.get(0).size(),2,3,3));
 					for(int p=0; p<checklists.get(w).size(); p++) {
 						int min=0;
@@ -573,7 +576,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 		
 		
-		for(int i=0; i<13; i++) {
+		for(int i=0; i<hintButtons.length; i++) {
 			
 			if(hintButtons[i].isSelected()) {
 				hintButtons[i].doClick();	
@@ -589,12 +592,18 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 					choices[p]=worlds.get(p).name;
 				}
 				
-				String answer=(String) JOptionPane.showInputDialog(null, "Where did you find Report #"+(i+1)+"?", //Creates pop-up window for location check
+				String answer="";
+				
+				if(i==13) {
+					answer=(String) JOptionPane.showInputDialog(null, "Where did you find the GoA map?", //Creates pop-up window for location check
+							"GoA Map Check: Attempt #"+(attempts[i]+1)+"/3",JOptionPane.QUESTION_MESSAGE,null, choices, choices[0]);
+				}
+				else answer=(String) JOptionPane.showInputDialog(null, "Where did you find Report #"+(i+1)+"?", //Creates pop-up window for location check
 						"Report #"+(i+1)+" Check: Attempt #"+(attempts[i]+1)+"/3",JOptionPane.QUESTION_MESSAGE,null, choices, choices[0]);
 				
 				if(answer.equals(correctAnswer)) {
 				
-				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i)))));
+				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
 				try {
 					hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,12));
 				} catch (FontFormatException | IOException e1) {
@@ -653,7 +662,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 		for(int i=0; i<hintButtons.length; i++) {
 			if(attempts[i]==13) {
-				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i)))));
+				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
 			}
 		}
 		

@@ -55,7 +55,7 @@ public class World implements Comparable<World>{
 		else highestPriorityIndex=hpi;
 	}
 	
-	public String getReportInfo(ArrayList<Integer> checklist) {
+	public String getReportInfo(ArrayList<Integer> checklist, int index) {
 		
 		if(this.priorityScore==0) {
 			return this.name+" has nothing but shadows.";
@@ -64,14 +64,15 @@ public class World implements Comparable<World>{
 		String output="";	
 		String temp="";
 		
+		
 		if(pools.get(highestPriorityIndex).name.equals("Path of Light")) {
 			temp="The Path of Light leads ";
 		}
 
 		else if(pools.get(highestPriorityIndex).name.equals("Reports")) {
-			temp="Ansem the Wise left hints ";
+			temp="DiZ left hints ";
 		}
-		else if(pools.get(highestPriorityIndex).name.contains("'s Choice")) {
+		else if(pools.get(highestPriorityIndex).name.contains("`s Choice")) {
 			temp=pools.get(highestPriorityIndex).name.substring(0,pools.get(highestPriorityIndex).name.length()-9);
 			temp+=" recommends looking ";
 		}
@@ -88,7 +89,7 @@ public class World implements Comparable<World>{
 			if(pools.get(highestPriorityIndex).name.equals("Path of Light"))
 				output+="to ";
 			else output+="in ";
-			output+="your newfound strength.";
+			output+="forms.";
 		}
 		else {
 			if(pools.get(highestPriorityIndex).name.equals("Path of Light"))
@@ -103,7 +104,8 @@ public class World implements Comparable<World>{
 			tempScore-=checklist.get(i)*pools.get(i).priority;
 		}
 		
-		output+=": Remaining Priority Score "+tempScore;
+		output+=": Remaining Priority Score "+tempScore+" of "+priorityScore;
+		
 		
 		return output;
 

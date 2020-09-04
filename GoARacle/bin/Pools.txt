@@ -4,26 +4,26 @@
 0251
 0252
 0253
-[Goofy's Choice]
+[Goofy`s Choice]
 33
 001A
 0018
 0057
 0058
-[Donald's Choice]
+[Donald`s Choice]
 33
 001B
 0015
 0016
 0017
-[Merlin's Choice]
+[Merlin`s Choice]
 33
 017F
 0019
 009F
 00A0
 0020
-[Roxas's Choice]
+[Roxas`s Choice]
 25
 001D
 021D
@@ -35,7 +35,7 @@
 021B
 0189
 010C
-[Riku's Choice]
+[Riku`s Choice]
 25
 0233
 010A
@@ -46,7 +46,7 @@
 0186
 0106
 0232
-[Kairi's Choice]
+[Kairi`s Choice]
 25
 001F
 0110
@@ -56,12 +56,13 @@
 010F
 0187
 018B
-[King Mickey's Choice]
+[Mickey`s Choice]
 20
 006C
 018A
-00A2
-00A3
+0198
+0199
+019A
 [Reports]
 15
 00E2
@@ -77,5 +78,6 @@
 00EC
 00ED
 00EE
+0250
 {Terminate}
 -1
