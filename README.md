@@ -35,7 +35,7 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
  
  Pools:
    
-   Mickey's Choice:
+    Mickey's Choice:
       
       REMOVED:
        
@@ -55,7 +55,7 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
     
       ADDED: 
       
-        Garden of Assemblage Map
+        Garden of Assemblage Map`
 
 8/31/20 4pm EST: Fixed an issue where using the Mark Off feature on a revealed report would not update it.
 
