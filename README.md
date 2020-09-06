@@ -31,6 +31,8 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## Changelog
 
+9/6/20: Added ability to switch between worlds within the checklist.  Checklist now shows amount of points found in the world.  Changed text to overall be shorter, along with window size update.  
+
 9/4/20: Reports now show how max priority score as well as remaining.  Changed window sizes (sorry if it's worse, hard to get a good window size for all).  Added a button for the Garden of Assemblage Map, giving you the 14th best world, might wanna look out for maps now!  
  
  Pools:
