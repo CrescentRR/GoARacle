@@ -74,7 +74,7 @@ public class World implements Comparable<World>{
 		}
 		else if(pools.get(highestPriorityIndex).name.contains("`s Choice")) {
 			temp=pools.get(highestPriorityIndex).name.substring(0,pools.get(highestPriorityIndex).name.length()-9);
-			temp+=" recommends looking ";
+			temp+=" wants you to look ";
 		}
 		
 		output+=temp;
@@ -95,7 +95,12 @@ public class World implements Comparable<World>{
 			if(pools.get(highestPriorityIndex).name.equals("Path of Light"))
 				output+="to ";
 			else output+="in ";
-			output+=this.name;
+			
+			if(this.name.equals("Simulated Twilight Town"))
+				output+="Sim. Twilight Town";
+			else if(this.name.equals("Disney Castle and Timeless River"))
+				output+="Disney Castle and TR";
+			else output+=this.name;
 		}
 		
 		int tempScore=priorityScore;
@@ -104,7 +109,7 @@ public class World implements Comparable<World>{
 			tempScore-=checklist.get(i)*pools.get(i).priority;
 		}
 		
-		output+=": Remaining Priority Score "+tempScore+" of "+priorityScore;
+		output+=" - Priority Score "+tempScore+" of "+priorityScore;
 		
 		
 		return output;

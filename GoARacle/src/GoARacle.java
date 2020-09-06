@@ -21,6 +21,11 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	static ArrayList<ArrayList<Integer>> checklists;
 	static ArrayList<ArrayList<JSpinner>> spinners;
 	
+	JDialog spinnerBox;
+	JComboBox<String> spinnerWorld;
+	JLabel spinnerPoints;
+	
+	
 	JFrame frame;
 	
 	JButton pnachButton;
@@ -53,18 +58,47 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		checklists=new ArrayList<ArrayList<Integer>>();
 		spinners=new ArrayList<ArrayList<JSpinner>>();
 		
+		String[] temp=new String[worlds.size()-1];
+		for(int i=0; i<temp.length; i++)
+			temp[i]=worlds.get(i).name;
+		
+		spinnerWorld=new JComboBox<String>(temp);
+		spinnerWorld.addActionListener(this);
+		
+		spinnerPoints=new JLabel();
+		try {
+			spinnerPoints.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
+		} catch (FontFormatException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		
+		
 		for(int i=0; i<worlds.size()-1; i++) {
 			checklists.add(new ArrayList<Integer>());
 			spinners.add(new ArrayList<JSpinner>());
 			for(int p=0; p<pools.size(); p++) {
 				checklists.get(i).add(0);
 				spinners.get(i).add(new JSpinner());
+				SpinnerNumberModel snm=new SpinnerNumberModel();
+				snm.setValue(checklists.get(i).get(p));
+				snm.setMinimum(0);
+				snm.setMaximum(30);
+				snm.setStepSize(1);
+				spinners.get(i).set(p,addLabeledSpinner(pools.get(p).name,snm));
+				spinners.get(i).get(p).addChangeListener(this);
 			}
 		}
 		
-		frame=new JFrame("GoARacle by CrescentRR: 8/31/20 Revision");
+		spinnerBox=new JDialog(frame, "");
+		spinnerBox.setSize(500, 50*(pools.size()+1));
+		spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
+		
+		frame=new JFrame("GoARacle by CrescentRR: 9/6/20 Revision");
 		frame.add(this);
-		frame.setSize(850,900);
+		frame.setSize(935,900);
 		frame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
 		
 		
@@ -496,32 +530,25 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			String answer=(String) JOptionPane.showInputDialog(null, "What world are you checking?", //Creates pop-up window for location check
 					"World Check-Off",JOptionPane.QUESTION_MESSAGE,null, allWorlds, allWorlds[0]);
 			
-			JDialog spinnerBox = null; 
+			spinnerBox=new JDialog(frame, answer+" Checklist");
+			spinnerBox.setSize(500, 50*(pools.size()+1));
+			spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
 			
-			/*
-			 * TO DO:
-			 * Make spinners fit in box
-			 * Make labels
-			 * Other shit
-			 * 
-			 * 
-			 */
+			spinnerBox.add(spinnerWorld);
+			spinnerBox.add(spinnerPoints);
 			
-			for(int w=0; w<worlds.size()-1; w++) {
+			
+			
+			int totalPoints=0;
+			
+			Outer: for(int w=0; w<worlds.size()-1; w++) {
 				if(answer.equals(worlds.get(w).name)) {
-					spinnerBox=new JDialog(frame, answer+" Checklist");
-					spinnerBox.setSize(500, 50*pools.size());
-					spinnerBox.setLayout(new GridLayout(checklists.get(0).size(),2,3,3));
+					spinnerWorld.removeActionListener(this);
+					spinnerWorld.setSelectedIndex(w);
+					spinnerWorld.addActionListener(this);
 					for(int p=0; p<checklists.get(w).size(); p++) {
-						int min=0;
-						int max=30;
-						SpinnerNumberModel snm=new SpinnerNumberModel();
-						snm.setValue(checklists.get(w).get(p));
-						snm.setMinimum(0);
-						snm.setMaximum(30);
-						snm.setStepSize(1);
-						spinners.get(w).set(p,addLabeledSpinner(pools.get(p).name,snm));
-						spinners.get(w).get(p).addChangeListener(this);
+						
+						
 						JLabel label=new JLabel(pools.get(p).name);
 						try {
 							label.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
@@ -531,7 +558,10 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 						}
 						spinnerBox.add(label);
 						spinnerBox.add(spinners.get(w).get(p));
+						totalPoints+=checklists.get(w).get(p);
 					}
+					spinnerPoints.setText("Points: "+totalPoints);
+					break Outer;
 				}
 				
 			}
@@ -543,7 +573,47 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 			
 		}//end markButton
-		
+		else if(e.getSource()==spinnerWorld) {
+			
+			//System.out.println("HERE");
+			
+			spinnerBox.getContentPane().removeAll();
+			spinnerBox.setTitle(spinnerWorld.getSelectedItem()+" Checklist");
+			spinnerBox.setSize(500, 50*(pools.size()+1));
+			
+			spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
+			
+			spinnerBox.add(spinnerWorld);
+			spinnerBox.add(spinnerPoints);
+			
+			int totalPoints=0;
+			
+			int w=spinnerWorld.getSelectedIndex();
+			
+				
+
+					for(int p=0; p<checklists.get(w).size(); p++) {
+						
+						
+						JLabel label=new JLabel(pools.get(p).name);
+						try {
+							label.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
+						} catch (FontFormatException | IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						spinnerBox.add(label);
+						spinnerBox.add(spinners.get(w).get(p));
+						totalPoints+=checklists.get(w).get(p)*pools.get(p).priority;
+					}
+					spinnerPoints.setText("Points: "+totalPoints);
+					
+				
+				
+		spinnerBox.revalidate();
+			
+		}//end spinnerWorld
+		frame.revalidate();
 	}
 
 	private JSpinner addLabeledSpinner(String name, SpinnerNumberModel spinnerNumberModel) {
@@ -655,7 +725,14 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			for(int p=0; p<spinners.get(w).size(); p++) {
 				if(e.getSource()==spinners.get(w).get(p)) {
 					checklists.get(w).set(p,(int)spinners.get(w).get(p).getValue());
-					System.out.println(worlds.get(w).name+" "+pools.get(p).name+" "+checklists.get(w).get(p));
+					
+					//System.out.println(worlds.get(w).name+" "+pools.get(p).name+" "+checklists.get(w).get(p));
+					
+					int totalPoints=0;
+					
+					for(int i=0; i<checklists.get(w).size(); i++)
+						totalPoints+=checklists.get(w).get(i)*pools.get(i).priority;
+					spinnerPoints.setText("Points: "+totalPoints);
 				}
 			}
 		}
