@@ -3,7 +3,7 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## How to use
 
--Download the usable version at https://mega.nz/file/jIpRSKBa#9JHp8sNbLGl2P_JYr1fEIIWfFd1kopdi-UyLTQyycmg and clicking on the path "GoARacle", then pressing the Download button to download the whole folder.  Extract the folder and launch "GoARacle.exe", which is the application with the blue crystal icon.
+-Download the usable version at https://mega.nz/file/2M4XFbSR#876Y4AXJOy_phLa8fv7lw9AZFG-2czxuHXjzG-QeZBo and clicking on the path "GoARacle", then pressing the Download button to download the whole folder.  Extract the folder and launch "GoARacle.exe", which is the application with the blue crystal icon.
 
 -Click on "Select Seed" and navigate to your pnach seed file and select it.
 
