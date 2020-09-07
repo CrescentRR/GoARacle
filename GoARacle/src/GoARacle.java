@@ -21,6 +21,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	static ArrayList<ArrayList<Integer>> checklists;
 	static ArrayList<ArrayList<JSpinner>> spinners;
 	
+	static ArrayList<String> hoverPoolText;
+	
 	JDialog spinnerBox;
 	JComboBox<String> spinnerWorld;
 	JLabel spinnerPoints;
@@ -74,6 +76,35 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		}
 		
 		
+		hoverPoolText=new ArrayList<>();
+		
+		
+		String line="";
+		hoverPoolText.add("<html>");
+		
+		try {
+			BufferedReader file=new BufferedReader(new FileReader("resources/Pool Meaning.txt"));
+			
+			while((line=file.readLine())!=null) {
+				
+				if(!line.equals(""))
+				hoverPoolText.set(hoverPoolText.size()-1, hoverPoolText.get(hoverPoolText.size()-1)+line+"<br>");
+				
+				else {
+					hoverPoolText.set(hoverPoolText.size()-1, hoverPoolText.get(hoverPoolText.size()-1)+"<html>");
+					hoverPoolText.add("<html>");
+				}
+				
+			}
+			
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		
 		
 		for(int i=0; i<worlds.size()-1; i++) {
@@ -96,7 +127,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerBox.setSize(500, 50*(pools.size()+1));
 		spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
 		
-		frame=new JFrame("GoARacle by CrescentRR: 9/6/20 Revision");
+		frame=new JFrame("GoARacle v1.3.1 by CrescentRR");
 		frame.add(this);
 		frame.setSize(935,900);
 		frame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
@@ -550,6 +581,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 						
 						
 						JLabel label=new JLabel(pools.get(p).name);
+						label.setToolTipText(hoverPoolText.get(p));
 						try {
 							label.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
 						} catch (FontFormatException | IOException e1) {
@@ -586,6 +618,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			spinnerBox.add(spinnerWorld);
 			spinnerBox.add(spinnerPoints);
 			
+			
+			
 			int totalPoints=0;
 			
 			int w=spinnerWorld.getSelectedIndex();
@@ -596,6 +630,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 						
 						
 						JLabel label=new JLabel(pools.get(p).name);
+						label.setToolTipText(hoverPoolText.get(p));
 						try {
 							label.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
 						} catch (FontFormatException | IOException e1) {

@@ -63,7 +63,7 @@ Fire Boost x2
 Blizzard Boost x2
 Thunder Boost x2
 
-[Reports] 13 items, 15 Priority Score
+[Reports] 14 items, 15 Priority Score
 Secret Ansem`s Report 1
 Secret Ansem`s Report 2
 Secret Ansem`s Report 3
@@ -77,3 +77,4 @@ Secret Ansem`s Report 10
 Secret Ansem`s Report 11
 Secret Ansem`s Report 12
 Secret Ansem`s Report 13
+Garden of Assemblage Map

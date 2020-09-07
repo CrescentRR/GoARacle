@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch4jConfig>
-  <dontWrapJar>false</dontWrapJar>
+  <dontWrapJar>true</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\zyont\eclipse-workspace\GoARacle\GoARacle.jar</jar>
+  <jar>GoARacle.jar</jar>
   <outfile>C:\Users\zyont\eclipse-workspace\GoARacle\GoARacle.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
