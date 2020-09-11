@@ -3,7 +3,7 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## How to use
 
--Download the usable version at https://mega.nz/file/2M4XFbSR#876Y4AXJOy_phLa8fv7lw9AZFG-2czxuHXjzG-QeZBo and clicking on the path "GoARacle", then pressing the Download button to download the whole folder.  Extract the folder and launch "GoARacle.exe", which is the application with the blue crystal icon.
+-Download the usable version at https://mega.nz/file/mMpzgDbb#hbr1Jc8n067SDSFhuY-BPJHfJr2Q6DIFFTRJBdBq2qA and clicking on the path "GoARacle", then pressing the Download button to download the whole folder.  Extract the folder and launch "GoARacle.exe", which is the application with the blue crystal icon.
 
 -Click on "Select Seed" and navigate to your pnach seed file and select it.
 
@@ -30,6 +30,8 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 -Use the Mark Off button to get a running count of how much priority score is needed in each world.
 
 ## Changelog
+
+9/11/20 (v1.3.2): Removed the boxes that were supposed to be apostrophes.  Updated README.txt in the folder.  Removed clutter from the root of the folder.
 
 9/7/20 2:20am EST (v1.3.1): Added tooltips in the checklist, hover over the labels for a few seconds to display what is in the pools and what their scores are.  Corrected the Reports pool to include the Garden of Assemblage Map.  
 
