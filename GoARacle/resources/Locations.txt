@@ -179,7 +179,7 @@
 
 11CE0AE6
 
-[Beast's Castle]
+[Beasts Castle]
 11CDFBF2
 11CDFBFE
 11CDFC0A

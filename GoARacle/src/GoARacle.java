@@ -127,7 +127,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerBox.setSize(500, 50*(pools.size()+1));
 		spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
 		
-		frame=new JFrame("GoARacle v1.3.1 by CrescentRR");
+		frame=new JFrame("GoARacle v1.3.2 by CrescentRR");
 		frame.add(this);
 		frame.setSize(935,900);
 		frame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
@@ -580,7 +580,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 					for(int p=0; p<checklists.get(w).size(); p++) {
 						
 						
-						JLabel label=new JLabel(pools.get(p).name);
+						JLabel label=new JLabel(pools.get(p).name.replace("`s", ""));
 						label.setToolTipText(hoverPoolText.get(p));
 						try {
 							label.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
