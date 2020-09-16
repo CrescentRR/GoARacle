@@ -4,6 +4,11 @@ import java.awt.Graphics;
 import javax.swing.JToggleButton;
 
 public class ColorToggleButton extends JToggleButton{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void paintComponent(Graphics g) {
 		Color bg,text;
 		

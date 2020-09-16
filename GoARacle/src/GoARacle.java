@@ -10,6 +10,10 @@ import javax.swing.filechooser.*; //For only showing PNACH files on file choice
 
 public class GoARacle extends JPanel implements ActionListener, MouseListener, ChangeListener{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static ArrayList<String> locationCodes; //All locations
 	static ArrayList<String> poolCodes; //All pool items
 	static ArrayList<World> worlds; //All locations by world
@@ -75,7 +79,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			e1.printStackTrace();
 		}
 		
-		
+		ToolTipManager.sharedInstance().setInitialDelay(100);
 		hoverPoolText=new ArrayList<>();
 		
 		
@@ -96,7 +100,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				}
 				
 			}
-			
+			file.close();
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -127,7 +131,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerBox.setSize(500, 50*(pools.size()+1));
 		spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
 		
-		frame=new JFrame("GoARacle v1.3.2 by CrescentRR");
+		frame=new JFrame("GoARacle v1.3.3 by CrescentRR");
 		frame.add(this);
 		frame.setSize(935,900);
 		frame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
@@ -271,6 +275,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 	 */
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
 		GoARacle goARacle=new GoARacle();
 	}//end main method
@@ -336,7 +341,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				
 			}
 			
-			
+			input.close();
 			
 		}catch(IOException fnf) {
 			throw new FileNotFoundException("File not found");
@@ -384,7 +389,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				}
 				
 			}//end while
-			
+			input.close();
 		}catch(IOException fnf) {
 			throw new FileNotFoundException("File not found");
 		}
@@ -522,17 +527,17 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 		else if(e.getSource()==aboutButton) {
 			JDialog aboutBox=new JDialog(frame, "About");
-			aboutBox.setSize(500,500);
+			aboutBox.setSize(1250,1000);
 			
 			String text="";
 			String line="";
 			try {
-				BufferedReader file=new BufferedReader(new FileReader("resources/Pool Meaning.txt"));
+				BufferedReader file=new BufferedReader(new FileReader("README.txt"));
 				
 				while((line=file.readLine())!=null) {
 					text+=line+"\n";
 				}
-				
+				file.close();
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
