@@ -31,11 +31,16 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	JComboBox<String> spinnerWorld;
 	JLabel spinnerPoints;
 	
+	JDialog popoutBox;
+	JTextArea popoutText;
+	
+	ColorToggleButton[] copyButtons;
+	
 	
 	JFrame frame;
 	
 	JButton pnachButton;
-	JButton poolButton;
+	JButton popoutButton;
 	//JPanel topPanel;
 	JButton aboutButton;
 	JButton markButton;
@@ -131,7 +136,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerBox.setSize(500, 50*(pools.size()+1));
 		spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
 		
-		frame=new JFrame("GoARacle v1.3.3 by CrescentRR");
+		frame=new JFrame("GoARacle v1.4.0 by CrescentRR");
 		frame.add(this);
 		frame.setSize(935,900);
 		frame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
@@ -146,20 +151,25 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		pnachButton.setText("Select Seed");
 		
 		
-		poolButton=new JButton();
-		poolButton.addActionListener(this);
-		poolButton.setPreferredSize(new Dimension(10,46));
-		poolButton.setBackground(Color.decode("#2C2F33"));
-		poolButton.setForeground(Color.WHITE);
-		poolButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-		poolButton.setText("Coming Soon...");
+		popoutButton=new JButton();
+		popoutButton.addActionListener(this);
+		popoutButton.setPreferredSize(new Dimension(10,46));
+		popoutButton.setBackground(Color.decode("#2C2F33"));
+		popoutButton.setForeground(Color.WHITE);
+		popoutButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		popoutButton.setText("Popout");
+		popoutButton.setEnabled(true); //REMOVE THIS WHEN IMPLEMENTING
 		
-		poolButton.setEnabled(false); //REMOVE THIS WHEN IMPLEMENTING
+		popoutBox=new JDialog(frame, "Popout");
+		popoutBox.setUndecorated(false);
+		popoutBox.setSize(935,100);
+		
+
 		
 		/*topPanel=new JPanel();
 		topPanel.setLayout(new GridLayout(2,2,3,3));
 		topPanel.add(pnachButton);//,BorderLayout.NORTH
-		topPanel.add(poolButton);//,BorderLayout.CENTER
+		topPanel.add(popoutButton);//,BorderLayout.CENTER
 		*/
 		aboutButton=new JButton();
 		aboutButton.addActionListener(this);
@@ -182,6 +192,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 		
 		
+		
 		/*
 		botPanel=new JPanel();
 		botPanel.setLayout(new BorderLayout());
@@ -191,7 +202,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		pnachPanel=new JPanel();
 		pnachPanel.setLayout(new GridLayout(2,2,3,3));
 		pnachPanel.add(pnachButton);
-		pnachPanel.add(poolButton);
+		pnachPanel.add(popoutButton);
 		pnachPanel.add(aboutButton);
 		pnachPanel.add(markButton);
 		/*pnachPanel.add(pnachButton,BorderLayout.SOUTH);
@@ -205,6 +216,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		hintPanel.setLayout(new GridLayout(14,1));
 		
 		hintButtons=new ColorToggleButton[14];
+		copyButtons=new ColorToggleButton[14];
 		
 		try {
 		
@@ -214,19 +226,33 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			hintButtons[i].setPreferredSize(new Dimension(1,1));
 			//hintButtons[i].setBackground(Color.WHITE);
 			hintButtons[i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
+			
+			copyButtons[i]=new ColorToggleButton();
+			copyButtons[i].addMouseListener(this);
+			copyButtons[i].setPreferredSize(new Dimension(935,100));
+			//copyButtons[i].setBackground(Color.WHITE);
+			copyButtons[i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
+			
 			if(i==13) {
 				hintButtons[i].setText("Garden of Assemblage Map");
+				copyButtons[i].setText("Garden of Assemblage Map");
 			}
-			else hintButtons[i].setText("Secret Ansem Report "+(i+1));
+			else {
+				hintButtons[i].setText("Secret Ansem Report "+(i+1));
+				copyButtons[i].setText("Secret Ansem Report "+(i+1));
+			}
 			hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
+			copyButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
 			
 			hintButtons[i].setEnabled(false);
 			hintPanel.add(hintButtons[i]);
+			
+			copyButtons[i].setEnabled(false);
 		}
 		
 		
 			pnachButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,25));
-			poolButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,25));
+			popoutButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,25));
 			aboutButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,25));
 			markButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,25));
 		} catch (FileNotFoundException e) {
@@ -423,6 +449,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			
 			for(int i=0; i<hintButtons.length; i++) {
 				hintButtons[i].setEnabled(true);
+				copyButtons[i].setEnabled(true);
 			}
 			
 			
@@ -555,6 +582,18 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			aboutBox.setVisible(true);
 		}//end aboutButton
 		
+		else if(e.getSource()==popoutButton) {
+			
+			popoutBox=new JDialog(frame, "Popout");
+			popoutBox.setUndecorated(false);
+			popoutBox.setSize(935,100);
+			popoutBox.add(copyButtons[0]);
+			
+			popoutBox.setVisible(true);
+			
+		
+		}//end popoutButton
+		
 		else if(e.getSource()==markButton) {
 			
 			String[] allWorlds=new String[worlds.size()-1];
@@ -634,7 +673,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 					for(int p=0; p<checklists.get(w).size(); p++) {
 						
 						
-						JLabel label=new JLabel(pools.get(p).name);
+						JLabel label=new JLabel(pools.get(p).name.replace("`s", ""));
 						label.setToolTipText(hoverPoolText.get(p));
 						try {
 							label.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
@@ -654,6 +693,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			
 		}//end spinnerWorld
 		frame.revalidate();
+		popoutBox.revalidate();
 	}
 
 	private JSpinner addLabeledSpinner(String name, SpinnerNumberModel spinnerNumberModel) {
@@ -692,7 +732,13 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				hintButtons[i].doClick();	
 			}
 			
-			if(e.getSource()==hintButtons[i]&&hintButtons[i].isEnabled()&&attempts[i]<3) {
+			if(copyButtons[i].isSelected()) {
+				copyButtons[i].doClick();	
+			}
+			
+
+			
+			if((e.getSource()==hintButtons[i]||e.getSource()==copyButtons[i])&&hintButtons[i].isEnabled()&&attempts[i]<3) {
 				
 				String[] choices=new String[worlds.size()];
 				
@@ -714,16 +760,20 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				if(answer.equals(correctAnswer)) {
 				
 				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
+				copyButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
 				try {
 					hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,12));
+					copyButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,12));
 				} catch (FontFormatException | IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				//hintButtons[i].setEnabled(false);
-				//hintButtons[i].setBackground(Color.WHITE);
-				//hintButtons[i].setForeground(Color.BLACK);
-				//hintButtons[i].setContentAreaFilled(false);
+				
+				popoutBox.getContentPane().removeAll();
+				popoutBox.add(copyButtons[i]);
+				
+				popoutBox.repaint();
+				popoutBox.revalidate();
 				
 				attempts[i]=13;
 				
@@ -740,9 +790,13 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			if(hintButtons[i].isSelected()) {
 				hintButtons[i].doClick();	
 			}
+			if(copyButtons[i].isSelected()) {
+				copyButtons[i].doClick();	
+			}
 		}
 		
 		frame.revalidate();
+		popoutBox.revalidate();
 	}//end mouseReleased
 
 	@Override
@@ -773,29 +827,31 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 					for(int i=0; i<checklists.get(w).size(); i++)
 						totalPoints+=checklists.get(w).get(i)*pools.get(i).priority;
 					spinnerPoints.setText("Points: "+totalPoints);
+					
+					
+					
 				}
 			}
 		}
 		
 		for(int i=0; i<hintButtons.length; i++) {
-			if(attempts[i]==13) {
+			if(attempts[i]==13&&!hintButtons[i].getText().equals((worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i)))) {
 				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
+				copyButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
+				popoutBox.getContentPane().removeAll();
+				popoutBox.add(copyButtons[i]);
+				
+				popoutBox.repaint();
+				popoutBox.revalidate();
 			}
 		}
 		
 		frame.revalidate();
+		
+		
 	}
 	
 }//end GoARacle class
 
-
-
-//Code for Checklist, needs to be reworked
-/*
- * 			int index=0;
-			int i=0;
-			int p=0;
-
- */
 
 
