@@ -31,8 +31,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	JComboBox<String> spinnerWorld;
 	JLabel spinnerPoints;
 	
-	JDialog popoutBox;
 	JTextArea popoutText;
+	JFrame popoutFrame;
 	
 	ColorToggleButton[] copyButtons;
 	
@@ -136,7 +136,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerBox.setSize(500, 50*(pools.size()+1));
 		spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
 		
-		frame=new JFrame("GoARacle v1.4.0 by CrescentRR");
+		frame=new JFrame("GoARacle v1.4.1 by CrescentRR");
 		frame.add(this);
 		frame.setSize(935,900);
 		frame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
@@ -160,9 +160,12 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		popoutButton.setText("Popout");
 		popoutButton.setEnabled(true); //REMOVE THIS WHEN IMPLEMENTING
 		
-		popoutBox=new JDialog(frame, "Popout");
-		popoutBox.setUndecorated(false);
-		popoutBox.setSize(935,100);
+		popoutFrame=new JFrame("Popout");
+		popoutFrame.add(this);
+		popoutFrame.setSize(935,100);
+		popoutFrame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
+		
+
 		
 
 		
@@ -584,12 +587,11 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 		else if(e.getSource()==popoutButton) {
 			
-			popoutBox=new JDialog(frame, "Popout");
-			popoutBox.setUndecorated(false);
-			popoutBox.setSize(935,100);
-			popoutBox.add(copyButtons[0]);
-			
-			popoutBox.setVisible(true);
+			popoutFrame=new JFrame("Popout");
+			popoutFrame.setSize(935,100);
+			popoutFrame.add(copyButtons[0]);
+			popoutFrame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
+			popoutFrame.setVisible(true);
 			
 		
 		}//end popoutButton
@@ -693,7 +695,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			
 		}//end spinnerWorld
 		frame.revalidate();
-		popoutBox.revalidate();
+		popoutFrame.revalidate();
 	}
 
 	private JSpinner addLabeledSpinner(String name, SpinnerNumberModel spinnerNumberModel) {
@@ -760,20 +762,20 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				if(answer.equals(correctAnswer)) {
 				
 				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
-				copyButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
+				copyButtons[i].setText((i+1)+" - "+worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
 				try {
 					hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,12));
-					copyButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,12));
+					copyButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,11));
 				} catch (FontFormatException | IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
-				popoutBox.getContentPane().removeAll();
-				popoutBox.add(copyButtons[i]);
+				popoutFrame.getContentPane().removeAll();
+				popoutFrame.add(copyButtons[i]);
 				
-				popoutBox.repaint();
-				popoutBox.revalidate();
+				popoutFrame.repaint();
+				popoutFrame.revalidate();
 				
 				attempts[i]=13;
 				
@@ -796,7 +798,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		}
 		
 		frame.revalidate();
-		popoutBox.revalidate();
+		popoutFrame.revalidate();
 	}//end mouseReleased
 
 	@Override
@@ -837,12 +839,12 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		for(int i=0; i<hintButtons.length; i++) {
 			if(attempts[i]==13&&!hintButtons[i].getText().equals((worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i)))) {
 				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
-				copyButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
-				popoutBox.getContentPane().removeAll();
-				popoutBox.add(copyButtons[i]);
+				copyButtons[i].setText((i+1)+" - "+worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
+				popoutFrame.getContentPane().removeAll();
+				popoutFrame.add(copyButtons[i]);
 				
-				popoutBox.repaint();
-				popoutBox.revalidate();
+				popoutFrame.repaint();
+				popoutFrame.revalidate();
 			}
 		}
 		
