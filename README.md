@@ -3,7 +3,7 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## How to use
 
--Download the usable version at https://mega.nz/file/eAhSSSBQ#x4P3Puq2CYYERhbz5WUea3fCEd3Y42dhi90p3k72PyU and clicking on the path "GoARacle", then pressing the Download button to download the whole folder.  Extract the folder and launch "GoARacle.exe", which is the application with the blue crystal icon.
+-Download the usable version at https://mega.nz/file/mU5z0SQb#VcPRrBkp8nNV3xk7ThYD-t_4KMqKLvCng0edrHODEdg and clicking on the path "GoARacle", then pressing the Download button to download the whole folder.  Extract the folder and launch "GoARacle.exe", which is the application with the blue crystal icon.
 
 -Click on "Select Seed" and navigate to your pnach seed file and select it.
 
@@ -30,6 +30,8 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 -Use the Mark Off button to get a running count of how much priority score is needed in each world.
 
 ## Changelog
+
+10/12/20 (v1.4.1): Fixed an issue where the popout window would not be able to be shared via window capture.  Added a label to the popout window's hints to say what hint it is.
 
 10/8/20 (v1.4.0): Wow, a whole month!  Added the "Popout" button, where you can get an automatically updating report tab that shows the most recently updated report! Might work on making a header-less version of it so make it blend into stream layouts better.  Also fixed a bug where those pesky boxes popped up when changing your world in "Mark Off".
 
