@@ -3,7 +3,7 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## How to use
 
--Download the usable version at https://mega.nz/file/mU5z0SQb#VcPRrBkp8nNV3xk7ThYD-t_4KMqKLvCng0edrHODEdg and clicking on the path "GoARacle", then pressing the Download button to download the whole folder.  Extract the folder and launch "GoARacle.exe", which is the application with the blue crystal icon.
+-Download the usable version at https://mega.nz/file/3Q4B2CJS#BdNPQkXjtIcfWHcDm9vkFHaJvvnsrn858kS_hcSc0WY and clicking on the path "GoARacle", then pressing the Download button to download the whole folder.  Extract the folder and launch "GoARacle.exe", which is the application with the blue crystal icon.
 
 -Click on "Select Seed" and navigate to your pnach seed file and select it.
 
@@ -30,6 +30,8 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 -Use the Mark Off button to get a running count of how much priority score is needed in each world.
 
 ## Changelog
+
+10/16/20 (v1.4.2): Using Mark Off to track items in worlds that do not have a report revealed for them now show the number of points you have in that world in the Popout window.  Fixed an issue where Trinity Limit was not being tracked in reports.  Changed the world name of "Disney Castle and Timeless River" to "Disney Castle and TR".
 
 10/12/20 (v1.4.1): Fixed an issue where the popout window would not be able to be shared via window capture.  Added a label to the popout window's hints to say what hint it is.
 
