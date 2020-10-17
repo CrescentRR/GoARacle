@@ -9,6 +9,7 @@ public class World implements Comparable<World>{
 	int[] poolItems; //number of items in each pool
 	
 	int priorityScore;
+	int foundScore;
 	int highestPriorityIndex;
 	
 	public World(String name, String[] locs) {
@@ -17,16 +18,13 @@ public class World implements Comparable<World>{
 			locations.add(curr);
 		
 		priorityScore=0;
+		foundScore=0;
 		highestPriorityIndex=-1;
 		
 		this.name=name;
 	}//end constructor
 	
-	public void fixLevel() {
-		if(this.name.equals("Levels"))
-			for(int i=0; i<poolItems.length; i++)
-				poolItems[i]/=3;
-	}
+
 	
 	public void updatePriority() {
 		int highestPriorityNum=0;
@@ -104,9 +102,11 @@ public class World implements Comparable<World>{
 		}
 		
 		int tempScore=priorityScore;
+		foundScore=0;
 		
 		for(int i=0; i<checklist.size(); i++) {
 			tempScore-=checklist.get(i)*pools.get(i).priority;
+			foundScore+=checklist.get(i)*pools.get(i).priority;
 		}
 		
 		output+=" - Priority Score "+tempScore+" of "+priorityScore;

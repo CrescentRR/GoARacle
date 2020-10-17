@@ -35,6 +35,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	JFrame popoutFrame;
 	
 	ColorToggleButton[] copyButtons;
+	ColorToggleButton copyButtonExtra;
 	
 	
 	JFrame frame;
@@ -220,9 +221,13 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 		hintButtons=new ColorToggleButton[14];
 		copyButtons=new ColorToggleButton[14];
+		copyButtonExtra=new ColorToggleButton();
+		copyButtonExtra.addMouseListener(this);
+		copyButtonExtra.setPreferredSize(new Dimension(1,1));
+		copyButtonExtra.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		
 		try {
-		
+			copyButtonExtra.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
 		for(int i=0; i<14; i++) {
 			hintButtons[i]=new ColorToggleButton();
 			hintButtons[i].addMouseListener(this);
@@ -479,6 +484,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 										world.poolItems[pools.indexOf(pool)]++;
 										if(pool.name.equals("Reports")) {
 											reports[pool.items.indexOf(split[4])].loc=world.name;
+											System.out.println("Report "+(pool.items.indexOf(split[4])+1)+" is in "+world.name);
 										}//end Reports check
 									}
 								}
@@ -687,6 +693,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 						spinnerBox.add(spinners.get(w).get(p));
 						totalPoints+=checklists.get(w).get(p)*pools.get(p).priority;
 					}
+					
 					spinnerPoints.setText("Points: "+totalPoints);
 					
 				
@@ -726,7 +733,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	public void mouseReleased(MouseEvent e) {
 		
 		
-		
+		if(copyButtonExtra.isSelected())
+			copyButtonExtra.doClick();
 		
 		for(int i=0; i<hintButtons.length; i++) {
 			
@@ -816,7 +824,6 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		// TODO Auto-generated method stub
-		
 		for(int w=0; w<spinners.size(); w++) {
 			for(int p=0; p<spinners.get(w).size(); p++) {
 				if(e.getSource()==spinners.get(w).get(p)) {
@@ -830,13 +837,32 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 						totalPoints+=checklists.get(w).get(i)*pools.get(i).priority;
 					spinnerPoints.setText("Points: "+totalPoints);
 					
+					boolean changed=false;
 					
+					for(int i=0; i<hintButtons.length; i++) {
+						if(attempts[i]==13&&!hintButtons[i].getText().equals((worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i)))) {
+							hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
+							copyButtons[i].setText((i+1)+" - "+worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
+							popoutFrame.getContentPane().removeAll();
+							popoutFrame.add(copyButtons[i]);
+							
+							popoutFrame.repaint();
+							popoutFrame.revalidate();
+							changed=true;
+						}
+					}
+					if(!changed) {
+						popoutFrame.getContentPane().removeAll();
+						popoutFrame.add(copyButtonExtra);
+						copyButtonExtra.setText("You got "+totalPoints+" points from checks in "+worlds.get(w).name);
+					}
 					
+
 				}
 			}
 		}
 		
-		for(int i=0; i<hintButtons.length; i++) {
+		/*for(int i=0; i<hintButtons.length; i++) {
 			if(attempts[i]==13&&!hintButtons[i].getText().equals((worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i)))) {
 				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
 				copyButtons[i].setText((i+1)+" - "+worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
@@ -846,7 +872,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				popoutFrame.repaint();
 				popoutFrame.revalidate();
 			}
-		}
+		}*/
 		
 		frame.revalidate();
 		
