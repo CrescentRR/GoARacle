@@ -36,6 +36,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	
 	ColorToggleButton[] copyButtons;
 	ColorToggleButton copyButtonExtra;
+	int lastUpdatedButton;
 	
 	
 	JFrame frame;
@@ -137,7 +138,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerBox.setSize(500, 50*(pools.size()+1));
 		spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
 		
-		frame=new JFrame("GoARacle v1.4.1 by CrescentRR");
+		frame=new JFrame("GoARacle v1.4.3 by CrescentRR");
 		frame.add(this);
 		frame.setSize(935,900);
 		frame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
@@ -150,6 +151,9 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		pnachButton.setForeground(Color.WHITE);
 		pnachButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		pnachButton.setText("Select Seed");
+		pnachButton.setFocusPainted(false);
+		pnachButton.setToolTipText("<html>Read your pnach file to get started.</html>");
+		
 		
 		
 		popoutButton=new JButton();
@@ -160,13 +164,17 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		popoutButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		popoutButton.setText("Popout");
 		popoutButton.setEnabled(true); //REMOVE THIS WHEN IMPLEMENTING
+		popoutButton.setFocusPainted(false);
+		popoutButton.setToolTipText("<html>Popout a window so your stream knows what's new.</html>");
 		
 		popoutFrame=new JFrame("Popout");
 		popoutFrame.add(this);
 		popoutFrame.setSize(935,100);
 		popoutFrame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
 		
-
+		
+		
+		lastUpdatedButton=-1;
 		
 
 		
@@ -182,7 +190,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		aboutButton.setForeground(Color.WHITE);
 		aboutButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		aboutButton.setText("About");
-		
+		aboutButton.setFocusPainted(false);
+		aboutButton.setToolTipText("<html>Read Me</html>");
 		
 		markButton=new JButton();
 		markButton.addActionListener(this);
@@ -191,9 +200,9 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		markButton.setForeground(Color.WHITE);
 		markButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		markButton.setText("Mark Off");
-		
+		markButton.setFocusPainted(false);
 		markButton.setEnabled(false);
-		
+		markButton.setToolTipText("<html>Check off items you find.</html>");
 		
 		
 		
@@ -225,6 +234,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		copyButtonExtra.addMouseListener(this);
 		copyButtonExtra.setPreferredSize(new Dimension(1,1));
 		copyButtonExtra.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		copyButtonExtra.setFocusPainted(false);
+		copyButtonExtra.setText(frame.getTitle().replace('.', '-'));
 		
 		try {
 			copyButtonExtra.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
@@ -234,12 +245,14 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			hintButtons[i].setPreferredSize(new Dimension(1,1));
 			//hintButtons[i].setBackground(Color.WHITE);
 			hintButtons[i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
+			hintButtons[i].setFocusPainted(false);
 			
 			copyButtons[i]=new ColorToggleButton();
 			copyButtons[i].addMouseListener(this);
 			copyButtons[i].setPreferredSize(new Dimension(935,100));
 			//copyButtons[i].setBackground(Color.WHITE);
 			copyButtons[i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
+			copyButtons[i].setFocusPainted(false);
 			
 			if(i==13) {
 				hintButtons[i].setText("Garden of Assemblage Map");
@@ -278,36 +291,17 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 		frame.add(hintPanel,BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
+		frame.addComponentListener(new ComponentAdapter() {
+			public void componentMoved(ComponentEvent e) {
+				popoutFrame.setLocationRelativeTo(frame);
+			}
+		});
 		frame.setVisible(true);
 		
 		
 	}//end GoARacle
 	
-	/*
-	 * 	locationCodes=new ArrayList<>();
-		poolCodes=new ArrayList<>();
-	
-		pools=generatePools("Pools.txt");
-		worlds=generateWorlds("Locations.txt");
-		reports=new Report[13];
-		for(int i=0; i<13; i++) {
-			reports[i]=new Report(i+1);
-		}
-		
-	readPnach();
-	
-	for(World world:worlds) {
-		System.out.print(world.name+": ");
-		for(int pool:world.poolItems)
-			System.out.print(pool+" ");
-		System.out.println();
-	}
-	System.out.println();
-	
-	for(World world:worlds)
-		world.getReportInfo();
-		
-	 */
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
@@ -595,14 +589,17 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			
 			popoutFrame=new JFrame("Popout");
 			popoutFrame.setSize(935,100);
-			popoutFrame.add(copyButtons[0]);
+			if(lastUpdatedButton==-1)
+			popoutFrame.add(copyButtonExtra);
+			else popoutFrame.add(copyButtons[lastUpdatedButton]);
 			popoutFrame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
+			popoutFrame.setLocationRelativeTo(frame);
 			popoutFrame.setVisible(true);
 			
 		
 		}//end popoutButton
 		
-		else if(e.getSource()==markButton) {
+		else if(e.getSource()==markButton||e.getSource()==copyButtonExtra) {
 			
 			String[] allWorlds=new String[worlds.size()-1];
 			
@@ -642,7 +639,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 						}
 						spinnerBox.add(label);
 						spinnerBox.add(spinners.get(w).get(p));
-						totalPoints+=checklists.get(w).get(p);
+						totalPoints+=checklists.get(w).get(p)*pools.get(p).priority;
 					}
 					spinnerPoints.setText("Points: "+totalPoints);
 					break Outer;
@@ -781,7 +778,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				
 				popoutFrame.getContentPane().removeAll();
 				popoutFrame.add(copyButtons[i]);
-				
+				lastUpdatedButton=i;
 				popoutFrame.repaint();
 				popoutFrame.revalidate();
 				
@@ -845,7 +842,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 							copyButtons[i].setText((i+1)+" - "+worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
 							popoutFrame.getContentPane().removeAll();
 							popoutFrame.add(copyButtons[i]);
-							
+							lastUpdatedButton=i;
 							popoutFrame.repaint();
 							popoutFrame.revalidate();
 							changed=true;
@@ -855,6 +852,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 						popoutFrame.getContentPane().removeAll();
 						popoutFrame.add(copyButtonExtra);
 						copyButtonExtra.setText("You got "+totalPoints+" points from checks in "+worlds.get(w).name);
+						lastUpdatedButton=-1;
 					}
 					
 
@@ -862,17 +860,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			}
 		}
 		
-		/*for(int i=0; i<hintButtons.length; i++) {
-			if(attempts[i]==13&&!hintButtons[i].getText().equals((worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i)))) {
-				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
-				copyButtons[i].setText((i+1)+" - "+worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
-				popoutFrame.getContentPane().removeAll();
-				popoutFrame.add(copyButtons[i]);
-				
-				popoutFrame.repaint();
-				popoutFrame.revalidate();
-			}
-		}*/
+
 		
 		frame.revalidate();
 		
