@@ -56,12 +56,20 @@ Horizontal Slash
 Air Combo Boost x2
 Berserk Charge x2
 
-[Mickey`s Choice] 9 items, 20 Priority Score
+[Mickey`s Choice] 11 items, 20 Priority Score
 Trinity Limit
 Negative Combo x2
 Fire Boost x2
 Blizzard Boost x2
 Thunder Boost x2
+Experience Boost x2
+
+[Yen Sid`s Choice] 20 items, 5 Priority Score
+High Jump
+Quick Run
+Dodge Roll
+Aerial Dodge
+Glide
 
 [Reports] 14 items, 15 Priority Score
 Secret Ansem`s Report 1
