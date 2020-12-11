@@ -6,6 +6,8 @@ This is a program made to read KH2FM seed files (pnach) and give you hints for y
 
 -Press the "Select Seed" button, then path to the location of your seed.  Navigate to your seed (pnach) file and confirm your choice.
 
+-Confirm whether you would like to see "Path of Light" hints or not in the following box.
+
 -When you collect a report (or the GoA map if you want to use it), click on the respective report to get a quiz on the location of it.
 
 -Answer the quiz correctly to see the hint.  
@@ -23,7 +25,7 @@ This is a program made to read KH2FM seed files (pnach) and give you hints for y
 
 -Total Priority Score is the total of the Priority Score of all the items in that world.
 
--If you cannot see a hint, try resizing the window.
+-If you cannot see a hint's text completely, try resizing the window.
 
 
 				"I can't seem to remember what each pool contains!"
@@ -47,6 +49,8 @@ This is a program made to read KH2FM seed files (pnach) and give you hints for y
 -KAIRI'S CHOICE: She's an air fighter, able to float in the breeze.  Master Form and air combat tools.
 
 -MICKEY'S CHOICE: Honestly the hardest pool to remember.  Trinity Limit, Negative Combo, and the elemental magic boosts.
+
+-YEN SID'S CHOICE:  Encourages Sora to grow is strength.  All growth abilities: High Jump, Quick Run, Dodge Roll, Aerial Dodge, and Glide.
 
 -REPORTS/DiZ: What it says on the tin.  Secret Ansem's Reports 1-13 with the Garden of Assemblage Map.
 
