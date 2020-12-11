@@ -77,6 +77,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 		spinnerWorld=new JComboBox<String>(temp);
 		spinnerWorld.addActionListener(this);
+		spinnerWorld.setMaximumRowCount(20);
 		
 		spinnerPoints=new JLabel();
 		try {
@@ -138,7 +139,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerBox.setSize(500, 50*(pools.size()+1));
 		spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
 		
-		frame=new JFrame("GoARacle v1.4.3 by CrescentRR");
+		frame=new JFrame("GoARacle v1.5.0 by CrescentRR");
 		frame.add(this);
 		frame.setSize(935,900);
 		frame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
@@ -491,9 +492,14 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			markButton.setEnabled(true);
 		}//end of OpenDialog if
 		
+		
+		//Hide Path of Light hints
+		boolean hidePoL=(JOptionPane.showConfirmDialog(null, "Would you like to hide Path of Light hints? (Points will still be counted.)")==JOptionPane.YES_OPTION);
+		//System.out.println(hidePoL);
+		
 		for(World world:worlds) {
 			//world.fixLevel();
-			world.updatePriority();
+			world.updatePriority(hidePoL);
 		}
 		
 		
@@ -607,10 +613,10 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				allWorlds[i]=worlds.get(i).name;
 			}
 			
-			String answer=(String) JOptionPane.showInputDialog(null, "What world are you checking?", //Creates pop-up window for location check
-					"World Check-Off",JOptionPane.QUESTION_MESSAGE,null, allWorlds, allWorlds[0]);
+			//String answer=(String) JOptionPane.showInputDialog(null, "What world are you checking?", //Creates pop-up window for location check
+			//		"World Check-Off",JOptionPane.QUESTION_MESSAGE,null, allWorlds, allWorlds[0]);
 			
-			spinnerBox=new JDialog(frame, answer+" Checklist");
+			spinnerBox=new JDialog(frame, allWorlds[0]+" Checklist");
 			spinnerBox.setSize(500, 50*(pools.size()+1));
 			spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
 			
@@ -621,12 +627,12 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			
 			int totalPoints=0;
 			
-			Outer: for(int w=0; w<worlds.size()-1; w++) {
-				if(answer.equals(worlds.get(w).name)) {
+			
+				
 					spinnerWorld.removeActionListener(this);
-					spinnerWorld.setSelectedIndex(w);
+					spinnerWorld.setSelectedIndex(0);
 					spinnerWorld.addActionListener(this);
-					for(int p=0; p<checklists.get(w).size(); p++) {
+					for(int p=0; p<checklists.get(0).size(); p++) {
 						
 						
 						JLabel label=new JLabel(pools.get(p).name.replace("`s", ""));
@@ -638,14 +644,13 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 							e1.printStackTrace();
 						}
 						spinnerBox.add(label);
-						spinnerBox.add(spinners.get(w).get(p));
-						totalPoints+=checklists.get(w).get(p)*pools.get(p).priority;
+						spinnerBox.add(spinners.get(0).get(p));
+						totalPoints+=checklists.get(0).get(p)*pools.get(p).priority;
 					}
 					spinnerPoints.setText("Points: "+totalPoints);
-					break Outer;
-				}
+					
 				
-			}
+			
 			
 			
 			

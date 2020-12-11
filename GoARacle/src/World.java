@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class World implements Comparable<World>{
 	String name; //Name of world/location of items
@@ -26,7 +27,7 @@ public class World implements Comparable<World>{
 	
 
 	
-	public void updatePriority() {
+	public void updatePriority(boolean hidePoL) {
 		int highestPriorityNum=0;
 		int hpi=0;
 		
@@ -35,6 +36,8 @@ public class World implements Comparable<World>{
 		for(int i=0; i<poolItems.length; i++) {
 			priorityScore+=poolItems[i]*pools.get(i).priority;
 			if(poolItems[i]*pools.get(i).priority>highestPriorityNum) {
+				if(hidePoL&&pools.get(i).name.equals("Path of Light"))
+					continue;
 				highestPriorityNum=poolItems[i]*pools.get(i).priority;
 				hpi=i;
 				randomizeEqual.clear();
@@ -46,7 +49,7 @@ public class World implements Comparable<World>{
 		}
 		
 		if(randomizeEqual.size()>1) {
-			Collections.shuffle(randomizeEqual);
+			Collections.shuffle(randomizeEqual,new Random(13));
 			highestPriorityIndex=randomizeEqual.get(0);
 		}
 		
