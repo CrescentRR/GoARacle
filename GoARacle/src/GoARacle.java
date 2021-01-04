@@ -53,7 +53,6 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	JPanel hintPanel;
 	
 	public GoARacle() throws FileNotFoundException {
-		
 		locationCodes=new ArrayList<String>();
 		poolCodes=new ArrayList<String>();
 		reports=new Report[14];
@@ -119,27 +118,9 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 		
 		
-		for(int i=0; i<worlds.size()-1; i++) {
-			checklists.add(new ArrayList<Integer>());
-			spinners.add(new ArrayList<JSpinner>());
-			for(int p=0; p<pools.size(); p++) {
-				checklists.get(i).add(0);
-				spinners.get(i).add(new JSpinner());
-				SpinnerNumberModel snm=new SpinnerNumberModel();
-				snm.setValue(checklists.get(i).get(p));
-				snm.setMinimum(0);
-				snm.setMaximum(30);
-				snm.setStepSize(1);
-				spinners.get(i).set(p,addLabeledSpinner(pools.get(p).name,snm));
-				spinners.get(i).get(p).addChangeListener(this);
-			}
-		}
+
 		
-		spinnerBox=new JDialog(frame, "");
-		spinnerBox.setSize(500, 50*(pools.size()+1));
-		spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
-		
-		frame=new JFrame("GoARacle v1.5.0 by CrescentRR");
+		frame=new JFrame("GoARacle v1.5.1 by CrescentRR");
 		frame.add(this);
 		frame.setSize(935,900);
 		frame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
@@ -299,10 +280,249 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			}
 		});
 		frame.setVisible(true);
-		
-		
 	}//end GoARacle
 	
+	public void reset() throws FileNotFoundException {
+		locationCodes=new ArrayList<String>();
+		poolCodes=new ArrayList<String>();
+		reports=new Report[14];
+		for(int i=0; i<14; i++) {
+			reports[i]=new Report(i);
+		}
+		worlds=generateWorlds();
+		pools=generatePools();
+		
+		attempts=new int[worlds.size()-1];
+		for(int i=0; i<attempts.length; i++) {
+			attempts[i]=0;
+		}
+		
+		checklists=new ArrayList<ArrayList<Integer>>();
+		spinners=new ArrayList<ArrayList<JSpinner>>();
+		
+		String[] temp=new String[worlds.size()-1];
+		for(int i=0; i<temp.length; i++)
+			temp[i]=worlds.get(i).name;
+		
+		spinnerWorld=new JComboBox<String>(temp);
+		spinnerWorld.addActionListener(this);
+		spinnerWorld.setMaximumRowCount(20);
+		
+		spinnerPoints=new JLabel();
+		try {
+			spinnerPoints.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
+		} catch (FontFormatException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		ToolTipManager.sharedInstance().setInitialDelay(100);
+		hoverPoolText=new ArrayList<>();
+		
+		
+		String line="";
+		hoverPoolText.add("<html>");
+		
+		try {
+			BufferedReader file=new BufferedReader(new FileReader("resources/Pool Meaning.txt"));
+			
+			while((line=file.readLine())!=null) {
+				
+				if(!line.equals(""))
+				hoverPoolText.set(hoverPoolText.size()-1, hoverPoolText.get(hoverPoolText.size()-1)+line+"<br>");
+				
+				else {
+					hoverPoolText.set(hoverPoolText.size()-1, hoverPoolText.get(hoverPoolText.size()-1)+"<html>");
+					hoverPoolText.add("<html>");
+				}
+				
+			}
+			file.close();
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		
+
+		
+		frame.getContentPane().removeAll();
+		frame.repaint();
+		frame.add(this);
+		frame.setSize(935,900);
+		frame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
+		
+		
+		pnachButton=new JButton();
+		pnachButton.addActionListener(this);
+		pnachButton.setPreferredSize(new Dimension(10,46));
+		pnachButton.setBackground(Color.decode("#2C2F33"));
+		pnachButton.setForeground(Color.WHITE);
+		pnachButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		pnachButton.setText("Select Seed");
+		pnachButton.setFocusPainted(false);
+		pnachButton.setToolTipText("<html>Read your pnach file to get started.</html>");
+		
+		
+		
+		popoutButton=new JButton();
+		popoutButton.addActionListener(this);
+		popoutButton.setPreferredSize(new Dimension(10,46));
+		popoutButton.setBackground(Color.decode("#2C2F33"));
+		popoutButton.setForeground(Color.WHITE);
+		popoutButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		popoutButton.setText("Popout");
+		popoutButton.setEnabled(true); //REMOVE THIS WHEN IMPLEMENTING
+		popoutButton.setFocusPainted(false);
+		popoutButton.setToolTipText("<html>Popout a window so your stream knows what's new.</html>");
+		
+		popoutFrame.getContentPane().removeAll();
+		popoutFrame.add(this);
+		popoutFrame.setSize(935,100);
+		popoutFrame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
+		popoutFrame.add(copyButtonExtra);
+		popoutFrame.repaint();
+		
+		
+		
+		lastUpdatedButton=-1;
+		
+
+		
+
+		
+		/*topPanel=new JPanel();
+		topPanel.setLayout(new GridLayout(2,2,3,3));
+		topPanel.add(pnachButton);//,BorderLayout.NORTH
+		topPanel.add(popoutButton);//,BorderLayout.CENTER
+		*/
+		aboutButton=new JButton();
+		aboutButton.addActionListener(this);
+		aboutButton.setPreferredSize(new Dimension(10,46));
+		aboutButton.setBackground(Color.decode("#2C2F33"));
+		aboutButton.setForeground(Color.WHITE);
+		aboutButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		aboutButton.setText("About");
+		aboutButton.setFocusPainted(false);
+		aboutButton.setToolTipText("<html>Read Me</html>");
+		
+		markButton=new JButton();
+		markButton.addActionListener(this);
+		markButton.setPreferredSize(new Dimension(10,46));
+		markButton.setBackground(Color.decode("#2C2F33"));
+		markButton.setForeground(Color.WHITE);
+		markButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		markButton.setText("Mark Off");
+		markButton.setFocusPainted(false);
+		markButton.setEnabled(false);
+		markButton.setToolTipText("<html>Check off items you find.</html>");
+		
+		if(spinnerBox!=null) {
+			if(spinnerBox.isVisible()) {
+				spinnerBox.dispose();
+				markButton.doClick();
+			}
+		}
+		
+		/*
+		botPanel=new JPanel();
+		botPanel.setLayout(new BorderLayout());
+		botPanel.add(aboutButton, BorderLayout.NORTH);
+		botPanel.add(markButton, BorderLayout.CENTER);
+		*/
+		pnachPanel=new JPanel();
+		pnachPanel.setLayout(new GridLayout(2,2,3,3));
+		pnachPanel.add(pnachButton);
+		pnachPanel.add(popoutButton);
+		pnachPanel.add(aboutButton);
+		pnachPanel.add(markButton);
+		/*pnachPanel.add(pnachButton,BorderLayout.SOUTH);
+		pnachPanel.add(aboutButton,BorderLayout.CENTER);*/
+		//pnachPanel.add(topPanel,BorderLayout.NORTH);
+		//pnachPanel.add(botPanel,BorderLayout.CENTER);
+		
+		frame.add(pnachPanel,BorderLayout.NORTH);
+		
+		hintPanel=new JPanel();
+		hintPanel.setLayout(new GridLayout(14,1));
+		
+		hintButtons=new ColorToggleButton[14];
+		copyButtons=new ColorToggleButton[14];
+		copyButtonExtra=new ColorToggleButton();
+		copyButtonExtra.addMouseListener(this);
+		copyButtonExtra.setPreferredSize(new Dimension(1,1));
+		copyButtonExtra.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		copyButtonExtra.setFocusPainted(false);
+		copyButtonExtra.setText(frame.getTitle().replace('.', '-'));
+		
+		try {
+			copyButtonExtra.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
+		for(int i=0; i<14; i++) {
+			hintButtons[i]=new ColorToggleButton();
+			hintButtons[i].addMouseListener(this);
+			hintButtons[i].setPreferredSize(new Dimension(1,1));
+			//hintButtons[i].setBackground(Color.WHITE);
+			hintButtons[i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
+			hintButtons[i].setFocusPainted(false);
+			
+			copyButtons[i]=new ColorToggleButton();
+			copyButtons[i].addMouseListener(this);
+			copyButtons[i].setPreferredSize(new Dimension(935,100));
+			//copyButtons[i].setBackground(Color.WHITE);
+			copyButtons[i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
+			copyButtons[i].setFocusPainted(false);
+			
+			if(i==13) {
+				hintButtons[i].setText("Garden of Assemblage Map");
+				copyButtons[i].setText("Garden of Assemblage Map");
+			}
+			else {
+				hintButtons[i].setText("Secret Ansem Report "+(i+1));
+				copyButtons[i].setText("Secret Ansem Report "+(i+1));
+			}
+			hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
+			copyButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
+			
+			hintButtons[i].setEnabled(false);
+			hintPanel.add(hintButtons[i]);
+			
+			copyButtons[i].setEnabled(false);
+		}
+		
+		
+			pnachButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,25));
+			popoutButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,25));
+			aboutButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,25));
+			markButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,25));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		frame.add(hintPanel,BorderLayout.CENTER);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
+		frame.addComponentListener(new ComponentAdapter() {
+			public void componentMoved(ComponentEvent e) {
+				popoutFrame.setLocationRelativeTo(frame);
+			}
+		});
+		frame.setVisible(true);
+		
+		
+	}//end reset
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IOException {
@@ -412,10 +632,10 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 					poolCodes.add("0000"+text);
 				}
 				
-				for(World world:worlds) {
+				/*for(World world:worlds) {
 					world.pools=output;
 					world.poolItems=new int[output.size()];
-				}
+				}*/
 				
 			}//end while
 			input.close();
@@ -429,6 +649,10 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	
 	public void readPnach() throws IOException{
 		
+		if(markButton.isEnabled()) {
+		reset();
+		}
+		boolean removedPoL=false;
 		try {
 		
 	
@@ -455,7 +679,67 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				copyButtons[i].setEnabled(true);
 			}
 			
+			ArrayList<JCheckBox> checkBoxes=new ArrayList<>();
+			ArrayList<JLabel> labels=new ArrayList<>();
+			GridLayout grid=new GridLayout(pools.size(),2);
+			JPanel tempPanel=new JPanel();
+			tempPanel.setLayout(grid);
 			
+			for(int i=0; i<pools.size(); i++) {
+				labels.add(new JLabel(pools.get(i).name));
+				labels.get(i).setToolTipText(hoverPoolText.get(i));
+				checkBoxes.add(new JCheckBox());
+				if(!labels.get(i).getText().equals("Yen Sid`s Choice"))
+				checkBoxes.get(i).setSelected(true);
+				tempPanel.add(labels.get(i));
+				tempPanel.add(checkBoxes.get(i));
+			}
+			
+			JOptionPane.showMessageDialog(null,tempPanel,"What pools would you like to be counted?",JOptionPane.PLAIN_MESSAGE,new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png"));
+			
+			
+			
+			for(int i=0; i<labels.size(); i++) {
+				for(int p=0; p<pools.size(); p++) {
+					if(pools.get(p).name.equals(labels.get(i).getText())) {
+						if(!checkBoxes.get(i).isSelected()) {
+							if(pools.get(p).name.equals("Path of Light"))
+								removedPoL=true;
+							pools.remove(p);
+							hoverPoolText.remove(p);
+							p--;
+						}//checkbox
+						break;
+					}//text equal
+				}//for each
+			}//for
+			
+			for(World world:worlds) {
+				world.pools=pools;
+				world.poolItems=new int[pools.size()];
+			}
+			
+			for(int i=0; i<worlds.size()-1; i++) {
+				checklists.add(new ArrayList<Integer>());
+				spinners.add(new ArrayList<JSpinner>());
+				for(int p=0; p<pools.size(); p++) {
+					checklists.get(i).add(0);
+					spinners.get(i).add(new JSpinner());
+					SpinnerNumberModel snm=new SpinnerNumberModel();
+					snm.setValue(checklists.get(i).get(p));
+					snm.setMinimum(0);
+					snm.setMaximum(30);
+					snm.setStepSize(1);
+					spinners.get(i).set(p,addLabeledSpinner(pools.get(p).name,snm));
+					spinners.get(i).get(p).addChangeListener(this);
+					spinners.get(i).get(p).getComponent(0).setPreferredSize(new Dimension(500,500));
+				}
+			}
+			if(spinnerBox==null)
+			spinnerBox=new JDialog(frame, "");
+			spinnerBox.setModal(true);
+			spinnerBox.setSize(500, 50*(pools.size()+1));
+			spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
 			
 			BufferedReader input=new BufferedReader(new FileReader(jfc.getSelectedFile()));
 			
@@ -488,13 +772,15 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 					}//end locationCodes and poolCodes check
 				}//end else
 			}//end while
-			pnachButton.setEnabled(false);
+			pnachButton.setEnabled(true);
 			markButton.setEnabled(true);
 		}//end of OpenDialog if
 		
 		
+		boolean hidePoL=false;
 		//Hide Path of Light hints
-		boolean hidePoL=(JOptionPane.showConfirmDialog(null, "Would you like to hide Path of Light hints? (Points will still be counted.)")==JOptionPane.YES_OPTION);
+		if(!removedPoL)
+		hidePoL=(JOptionPane.showConfirmDialog(null, "Would you like to hide Path of Light hints? (Points will still be counted.)")==JOptionPane.YES_OPTION);
 		//System.out.println(hidePoL);
 		
 		for(World world:worlds) {
@@ -649,7 +935,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 					}
 					spinnerPoints.setText("Points: "+totalPoints);
 					
-				
+					spinnerPoints.setToolTipText("<html>Keyboard Controls: Click on pool spinner to start.<br>UP/DOWN ARROW: Increment or Decrement the number.<br>TAB: Go to next pool.<br>SHIFT+TAB:Go to previous pool.</html>");
 			
 			
 			
