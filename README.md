@@ -31,6 +31,13 @@ Garden of Assemblage Randomizer Oracle.  Generates hints for runs.
 
 ## Changelog
 
+1/3/21 (v1.5.1): You can now disable pools when selecting a seed (Yen Sid disabled by default. If Path of Light is disabled, you will not be asked if you want to hide Path of Light).  You can now reset the application by selecting a new seed.  Hovering over the points in Mark Off now displays keyboard controls (if that's more your style).  
+
+12/11/20 (v1.5.0):When selecting a world in Mark Off, the dropdown now shows all worlds without a scrollbar.
+When opening Mark Off, it starts off on the STT Mark Off page instead of having a popup for the world you want.
+Yen Sid's Choice added: 5 Priority Score. Contains: Growth abilities.
+You can now hide Path of Light. Points are still counted, but will hint at another pool instead.
+
 11/18/20 (v1.4.3): Box around text on buttons have been removed.  Popout window now hides behind the main window to discourage pushing it off screen or minimizing it (which breaks it).  Tied pools are randomized on a seed instead of purely randomized.  Popout window starts on the last updated thing instead of the version number.  Hover text has been added for the functional buttons at the top of the main window for clarity.
 
 10/16/20 (v1.4.2): Using Mark Off to track items in worlds that do not have a report revealed for them now show the number of points you have in that world in the Popout window.  Fixed an issue where Trinity Limit was not being tracked in reports.  Changed the world name of "Disney Castle and Timeless River" to "Disney Castle and TR".
