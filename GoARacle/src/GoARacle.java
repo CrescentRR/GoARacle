@@ -10,9 +10,9 @@ import javax.swing.filechooser.*; //For only showing PNACH files on file choice
 
 public class GoARacle extends JPanel implements ActionListener, MouseListener, ChangeListener{
 	
-	/**
-	 * 
-	 */
+	
+	static String title="GoARacle v1.5.2 by CrescentRR";
+	
 	private static final long serialVersionUID = 1L;
 	static ArrayList<String> locationCodes; //All locations
 	static ArrayList<String> poolCodes; //All pool items
@@ -120,7 +120,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 
 		
-		frame=new JFrame("GoARacle v1.5.1 by CrescentRR");
+		frame=new JFrame(title);
 		frame.add(this);
 		frame.setSize(935,900);
 		frame.setIconImage(new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png").getImage());
@@ -652,7 +652,10 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		if(markButton.isEnabled()) {
 		reset();
 		}
+		
 		boolean removedPoL=false;
+		boolean removedReports=false;
+		
 		try {
 		
 	
@@ -697,14 +700,22 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			
 			JOptionPane.showMessageDialog(null,tempPanel,"What pools would you like to be counted?",JOptionPane.PLAIN_MESSAGE,new ImageIcon("icon/Struggle_Trophy_Crystal_KHII.png"));
 			
+			String[] instArr= new String[1];
+			Pool tempReports=new Pool("",instArr,0) ;
 			
+			for(int p=0; p<pools.size(); p++)
+				if(pools.get(p).name.equals("Reports"))
+					tempReports=pools.get(p);
 			
 			for(int i=0; i<labels.size(); i++) {
 				for(int p=0; p<pools.size(); p++) {
+						
 					if(pools.get(p).name.equals(labels.get(i).getText())) {
 						if(!checkBoxes.get(i).isSelected()) {
 							if(pools.get(p).name.equals("Path of Light"))
 								removedPoL=true;
+							if(pools.get(p).name.equals("Reports"))
+								removedReports=true;
 							pools.remove(p);
 							hoverPoolText.remove(p);
 							p--;
@@ -766,6 +777,10 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 											System.out.println("Report "+(pool.items.indexOf(split[4])+1)+" is in "+world.name);
 										}//end Reports check
 									}
+								}
+								if(tempReports.items.contains(split[4])&&removedReports) {
+									reports[tempReports.items.indexOf(split[4])].loc=world.name;
+									System.out.println("Report "+(tempReports.items.indexOf(split[4])+1)+" is in "+world.name);
 								}
 							}//end world location check
 						}//end world world world
