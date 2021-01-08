@@ -1071,9 +1071,30 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 						"Report #"+(i+1)+" Check: Attempt #"+(attempts[i]+1)+"/3",JOptionPane.QUESTION_MESSAGE,null, choices, choices[0]);
 				
 				if(answer.equals(correctAnswer)) {
-				
+					attempts[i]=13;
+					if(i==13) {
+						ArrayList<Integer> top3=new ArrayList<>();
+							for(int r=0; r<13; r++) {
+								if(attempts[r]<3) {
+									top3.add(r);
+								}
+								if(top3.size()==3)
+									break;
+							}//end for
+							Collections.shuffle(top3,new Random(47));
+							if(top3.size()==0) {
+								hintButtons[i].setText("The map leads nowhere, as there is nowhere else to report.");
+								copyButtons[i].setText("GoA - The map leads nowhere, as there is nowhere else to report.");
+							}
+							else {
+								hintButtons[i].setText("The map shows the way to a new report in "+reports[top3.get(0)].loc);
+								copyButtons[i].setText("GoA - The map shows the way to a new report in "+reports[top3.get(0)].loc);
+							}
+					}//end GoA map get best 3 reports
+					else {
 				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
 				copyButtons[i].setText((i+1)+" - "+worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
+					}//end normal case
 				try {
 					hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,12));
 					copyButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,11));
@@ -1088,7 +1109,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				popoutFrame.repaint();
 				popoutFrame.revalidate();
 				
-				attempts[i]=13;
+				
 				
 				
 				}//end check for correct answer
