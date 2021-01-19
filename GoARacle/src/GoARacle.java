@@ -2,6 +2,9 @@ import java.util.*;//For ArrayList
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*; //For BufferedReader and FileReader
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import javax.swing.*; //For file selection
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -11,7 +14,7 @@ import javax.swing.filechooser.*; //For only showing PNACH files on file choice
 public class GoARacle extends JPanel implements ActionListener, MouseListener, ChangeListener{
 	
 	
-	static String title="GoARacle v1.5.2 by CrescentRR";
+	static String title="GoARacle v1.5.3 by CrescentRR";
 	
 	private static final long serialVersionUID = 1L;
 	static ArrayList<String> locationCodes; //All locations
@@ -52,6 +55,9 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	ColorToggleButton[] hintButtons;
 	JPanel hintPanel;
 	
+	JButton seedButton;
+	JButton trackerButton;
+	
 	public GoARacle() throws FileNotFoundException {
 		locationCodes=new ArrayList<String>();
 		poolCodes=new ArrayList<String>();
@@ -78,13 +84,28 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerWorld.addActionListener(this);
 		spinnerWorld.setMaximumRowCount(20);
 		
+		seedButton=new JButton("Make Seed");
+		seedButton.addActionListener(this);
+		trackerButton=new JButton("Coming Soon...");
+		trackerButton.addActionListener(this);
+		
+		//Remove when complete:
+		trackerButton.setEnabled(false);
+		trackerButton.setToolTipText("<html>Coming soon...</html>");
+		
+		
 		spinnerPoints=new JLabel();
 		try {
 			spinnerPoints.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
+			seedButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
+			trackerButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
 		} catch (FontFormatException | IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		
+		
 		
 		ToolTipManager.sharedInstance().setInitialDelay(100);
 		hoverPoolText=new ArrayList<>();
@@ -239,6 +260,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			if(i==13) {
 				hintButtons[i].setText("Garden of Assemblage Map");
 				copyButtons[i].setText("Garden of Assemblage Map");
+				hintButtons[i].setToolTipText("<html>Gives location of the best unfound report.</html>");
 			}
 			else {
 				hintButtons[i].setText("Secret Ansem Report "+(i+1));
@@ -268,6 +290,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	
 		
 		
 		
@@ -308,13 +332,28 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerWorld.addActionListener(this);
 		spinnerWorld.setMaximumRowCount(20);
 		
+		seedButton=new JButton("Make Seed");
+		seedButton.addActionListener(this);
+		trackerButton=new JButton("Coming soon...");
+		trackerButton.addActionListener(this);
+		
+		//Remove this when finished:
+		trackerButton.setEnabled(false);
+		trackerButton.setToolTipText("<html>Coming soon...</html>");
+		
 		spinnerPoints=new JLabel();
 		try {
 			spinnerPoints.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
+			seedButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
+			trackerButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
 		} catch (FontFormatException | IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+
+		
+		
 		
 		ToolTipManager.sharedInstance().setInitialDelay(100);
 		hoverPoolText=new ArrayList<>();
@@ -692,7 +731,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				labels.add(new JLabel(pools.get(i).name));
 				labels.get(i).setToolTipText(hoverPoolText.get(i));
 				checkBoxes.add(new JCheckBox());
-				if(!labels.get(i).getText().equals("Yen Sid`s Choice"))
+				if(!labels.get(i).getText().equals("Yen Sid`s Choice")&&!labels.get(i).getText().equals("Mickey`s Choice"))
 				checkBoxes.get(i).setSelected(true);
 				tempPanel.add(labels.get(i));
 				tempPanel.add(checkBoxes.get(i));
@@ -919,7 +958,11 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			
 			spinnerBox=new JDialog(frame, allWorlds[0]+" Checklist");
 			spinnerBox.setSize(500, 50*(pools.size()+1));
-			spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
+			spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1+1,2,3,3));
+			
+			spinnerBox.add(seedButton);
+			spinnerBox.add(trackerButton);
+			
 			
 			spinnerBox.add(spinnerWorld);
 			spinnerBox.add(spinnerPoints);
@@ -968,7 +1011,10 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			spinnerBox.setTitle(spinnerWorld.getSelectedItem()+" Checklist");
 			spinnerBox.setSize(500, 50*(pools.size()+1));
 			
-			spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1,2,3,3));
+			spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1+1,2,3,3));
+			
+			spinnerBox.add(seedButton);
+			spinnerBox.add(trackerButton);
 			
 			spinnerBox.add(spinnerWorld);
 			spinnerBox.add(spinnerPoints);
@@ -1004,6 +1050,59 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerBox.revalidate();
 			
 		}//end spinnerWorld
+		else if(e.getSource()==seedButton) {
+			
+			File fileName=new File("GoARacle_Seed.goaracle");
+			
+			
+			
+			Random rand=new Random();
+			
+			String outputText="";
+			for(int i=0; i<13; i++) {
+				outputText+=worldOrder.get(i).locations.get(rand.nextInt(worldOrder.get(i).locations.size()));
+				outputText+=",";
+				outputText+=worldOrder.get(i).priorityScore*97;
+				outputText+=",";
+				outputText+=(worldOrder.get(i).priorityScore*53)+worldOrder.get(i).highestPriorityIndex;
+				outputText+=".";
+			}
+			outputText+="\n";
+			
+			for(int i=0; i<13; i++) {
+				for(World world:worlds) {
+					if(world.name.equals(reports[i].loc)) {
+						outputText+=world.locations.get(rand.nextInt(world.locations.size()));
+						outputText+=".";
+						break;
+					}
+						
+				}
+			}
+			
+			try {
+				BufferedWriter outputStream=new BufferedWriter(new FileWriter(fileName));
+				outputStream.write(outputText);
+				//System.out.println(fileName.getAbsolutePath());
+				outputStream.close();
+				
+			}catch(IOException io) {
+				io.printStackTrace();
+			}
+			
+			JOptionPane.showMessageDialog(frame,"Seed file saved at "+fileName.getAbsolutePath());
+			
+		}//end seedButton
+		else if(e.getSource()==trackerButton) {
+			if(Desktop.isDesktopSupported()&&Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+				try {
+					Desktop.getDesktop().browse(new URI("https://tracker.zaxu.xyz/next/#/"));
+				}catch(IOException | URISyntaxException io) {
+					io.printStackTrace();
+				}
+			}
+		}//end trackerButton
+	
 		frame.revalidate();
 		popoutFrame.revalidate();
 	}
@@ -1025,7 +1124,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		// TODO Auto-generated method stub
 		
 	}
-
+	//Clicked and pressed not used.
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -1063,6 +1162,11 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				
 				String answer="";
 				
+				int confirmChoice=-1;
+				boolean confirmHappened=false;
+				
+				do {
+				
 				if(i==13) {
 					answer=(String) JOptionPane.showInputDialog(null, "Where did you find the GoA map?", //Creates pop-up window for location check
 							"GoA Map Check: Attempt #"+(attempts[i]+1)+"/3",JOptionPane.QUESTION_MESSAGE,null, choices, choices[0]);
@@ -1070,13 +1174,24 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				else answer=(String) JOptionPane.showInputDialog(null, "Where did you find Report #"+(i+1)+"?", //Creates pop-up window for location check
 						"Report #"+(i+1)+" Check: Attempt #"+(attempts[i]+1)+"/3",JOptionPane.QUESTION_MESSAGE,null, choices, choices[0]);
 				
-				if(answer.equals(correctAnswer)) {
+				if(answer!=null&&attempts[i]==2) {
+					confirmHappened=true;
+					if(i==13)
+						confirmChoice=JOptionPane.showConfirmDialog(null,"Are you sure that GoA Map was in "+answer+"?","Confirmation for GoA Map, attempt #"+(attempts[i]+1)+"/3",JOptionPane.YES_NO_OPTION);
+				else confirmChoice=JOptionPane.showConfirmDialog(null,"Are you sure that Report #"+(i+1)+" was in "+answer+"?","Confirmation for Report #"+(i+1)+", attempt #"+(attempts[i]+1)+"/3",JOptionPane.YES_NO_OPTION);
+				}
+				
+				//System.out.println(confirmHappened+" "+confirmChoice);
+				}while(confirmChoice==JOptionPane.NO_OPTION);
+				
+				if(answer.equals(correctAnswer)&&( (confirmHappened&&confirmChoice==JOptionPane.YES_OPTION)||(!confirmHappened&&confirmChoice==-1) )) {
 					attempts[i]=13;
 					if(i==13) {
-						ArrayList<Integer> top3=new ArrayList<>();
+						/*ArrayList<Integer> top3=new ArrayList<>();
 							for(int r=0; r<13; r++) {
 								if(attempts[r]<3) {
 									top3.add(r);
+									attempts[r]=2;
 								}
 								if(top3.size()==3)
 									break;
@@ -1089,8 +1204,27 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 							else {
 								hintButtons[i].setText("The map shows the way to a new report in "+reports[top3.get(0)].loc);
 								copyButtons[i].setText("GoA - The map shows the way to a new report in "+reports[top3.get(0)].loc);
+							}*/  //Top 3 Best Reports
+							
+							int bestUnfound=-1;
+							
+							for(int r=0; r<13; r++) {
+								if(attempts[r]<3) {
+									bestUnfound=r;
+									break;
+								}
+							}//end report loop
+							
+							if(bestUnfound==-1) {
+								hintButtons[i].setText("The map leads nowhere, as there is nowhere else to report.");
+								copyButtons[i].setText("GoA - The map leads nowhere, as there is nowhere else to report.");
 							}
-					}//end GoA map get best 3 reports
+							else {
+								hintButtons[i].setText("The map leads you to Report "+(bestUnfound+1)+" in "+reports[bestUnfound].loc+".");
+								copyButtons[i].setText("GoA - The map leads you to Report "+(bestUnfound+1)+" in "+reports[bestUnfound].loc+".");
+							}
+							
+					}//end GoA map get best report
 					else {
 				hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
 				copyButtons[i].setText((i+1)+" - "+worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
@@ -1113,7 +1247,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				
 				
 				}//end check for correct answer
-				else {
+				else if(answer!=null &&!(confirmHappened&&confirmChoice==-1) ){
 					attempts[i]++;
 					
 				}
@@ -1135,10 +1269,10 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
-
+	//mouseEntered and Exited not used.
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
