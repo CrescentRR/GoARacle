@@ -14,7 +14,9 @@ import javax.swing.filechooser.*; //For only showing PNACH files on file choice
 public class GoARacle extends JPanel implements ActionListener, MouseListener, ChangeListener{
 	
 	
-	static String title="GoARacle v1.5.3 by CrescentRR";
+	static String title="GoARacle v1.5.4 by CrescentRR";
+	
+	boolean hidePoL;
 	
 	private static final long serialVersionUID = 1L;
 	static ArrayList<String> locationCodes; //All locations
@@ -33,6 +35,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	JDialog spinnerBox;
 	JComboBox<String> spinnerWorld;
 	JLabel spinnerPoints;
+	ArrayList<JLabel> spinnerLabels;
 	
 	JTextArea popoutText;
 	JFrame popoutFrame;
@@ -84,6 +87,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerWorld.addActionListener(this);
 		spinnerWorld.setMaximumRowCount(20);
 		
+		spinnerLabels=new ArrayList<>();
+		
 		seedButton=new JButton("Make Seed");
 		seedButton.addActionListener(this);
 		trackerButton=new JButton("Coming Soon...");
@@ -104,7 +109,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			e1.printStackTrace();
 		}
 		
-		
+		spinnerPoints.addMouseListener(this);
 		
 		
 		ToolTipManager.sharedInstance().setInitialDelay(100);
@@ -260,7 +265,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			if(i==13) {
 				hintButtons[i].setText("Garden of Assemblage Map");
 				copyButtons[i].setText("Garden of Assemblage Map");
-				hintButtons[i].setToolTipText("<html>Gives location of the best unfound report.</html>");
+				hintButtons[i].setToolTipText("<html>Gives location of best unfound world with a proof's report.<br>If none, gives location of the best unfound world's report.</html>");
 			}
 			else {
 				hintButtons[i].setText("Secret Ansem Report "+(i+1));
@@ -332,6 +337,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerWorld.addActionListener(this);
 		spinnerWorld.setMaximumRowCount(20);
 		
+		spinnerLabels=new ArrayList<>();
+		
 		seedButton=new JButton("Make Seed");
 		seedButton.addActionListener(this);
 		trackerButton=new JButton("Coming soon...");
@@ -351,7 +358,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			e1.printStackTrace();
 		}
 		
-
+		spinnerPoints.addMouseListener(this);
 		
 		
 		
@@ -686,6 +693,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 	}//end generatePools
 	
+	@SuppressWarnings("serial")
 	public void readPnach() throws IOException{
 		
 		if(markButton.isEnabled()) {
@@ -774,15 +782,24 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				spinners.add(new ArrayList<JSpinner>());
 				for(int p=0; p<pools.size(); p++) {
 					checklists.get(i).add(0);
-					spinners.get(i).add(new JSpinner());
+					
 					SpinnerNumberModel snm=new SpinnerNumberModel();
 					snm.setValue(checklists.get(i).get(p));
 					snm.setMinimum(0);
 					snm.setMaximum(30);
 					snm.setStepSize(1);
+					spinners.get(i).add(new JSpinner(snm) {
+						public void setLayout(LayoutManager mgr) {
+							super.setLayout(new SpinnerLayout());
+						}
+					});
+					
 					spinners.get(i).set(p,addLabeledSpinner(pools.get(p).name,snm));
 					spinners.get(i).get(p).addChangeListener(this);
-					spinners.get(i).get(p).getComponent(0).setPreferredSize(new Dimension(500,500));
+					
+					/*spinners.get(i).get(p).getComponent(0).setSize(new Dimension(200,200));
+					spinners.get(i).get(p).getComponent(1).setSize(new Dimension(200,200));
+					spinners.get(i).get(p).getComponent(2).setSize(new Dimension(200,200));*/
 				}
 			}
 			if(spinnerBox==null)
@@ -831,7 +848,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		}//end of OpenDialog if
 		
 		
-		boolean hidePoL=false;
+		hidePoL=false;
 		//Hide Path of Light hints
 		if(!removedPoL)
 		hidePoL=(JOptionPane.showConfirmDialog(null, "Would you like to hide Path of Light hints? (Points will still be counted.)")==JOptionPane.YES_OPTION);
@@ -842,8 +859,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			world.updatePriority(hidePoL);
 		}
 		
-		
-		
+
 		}catch(IOException io) {
 			throw new IOException("Problem reading pnach file.");
 		}
@@ -899,6 +915,34 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			}
 			
 			
+			for(int i=12; i>=0; i--) {
+				if(reports[i].loc.equals("Critical Rewards and Garden")) {
+					attempts[i]=13;
+					hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
+					copyButtons[i].setText((i+1)+" - "+worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
+					popoutFrame.getContentPane().removeAll();
+					popoutFrame.add(copyButtons[i]);
+					lastUpdatedButton=i;
+					popoutFrame.repaint();
+					popoutFrame.revalidate();
+					
+					try {
+						hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,12));
+						copyButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,11));
+					} catch (FontFormatException | IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					
+				}
+			}
+			if(reports[13].loc.equals("Critical Rewards and Garden")) {
+				JOptionPane.showMessageDialog(frame, "The Garden of Assemblage map was given to you at the start.  Use it whenever you like!");
+			}
+			
+			
+			
 		}//end pnachButton
 		
 		else if(e.getSource()==aboutButton) {
@@ -931,7 +975,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			aboutBox.setVisible(true);
 		}//end aboutButton
 		
-		else if(e.getSource()==popoutButton) {
+		else if(e.getSource()==popoutButton&&!popoutFrame.isVisible()) {
 			
 			popoutFrame=new JFrame("Popout");
 			popoutFrame.setSize(935,100);
@@ -956,9 +1000,9 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			//String answer=(String) JOptionPane.showInputDialog(null, "What world are you checking?", //Creates pop-up window for location check
 			//		"World Check-Off",JOptionPane.QUESTION_MESSAGE,null, allWorlds, allWorlds[0]);
 			
-			spinnerBox=new JDialog(frame, allWorlds[0]+" Checklist");
+			spinnerBox=new JDialog(frame, allWorlds[spinnerWorld.getSelectedIndex()]+" Checklist");
 			spinnerBox.setSize(500, 50*(pools.size()+1));
-			spinnerBox.setLayout(new GridLayout(checklists.get(0).size()+1+1,2,3,3));
+			spinnerBox.setLayout(new GridLayout(checklists.get(spinnerWorld.getSelectedIndex()).size()+1+1,2,3,3));
 			
 			spinnerBox.add(seedButton);
 			spinnerBox.add(trackerButton);
@@ -974,26 +1018,32 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			
 				
 					spinnerWorld.removeActionListener(this);
-					spinnerWorld.setSelectedIndex(0);
+					//spinnerWorld.setSelectedIndex(0);
 					spinnerWorld.addActionListener(this);
-					for(int p=0; p<checklists.get(0).size(); p++) {
+					
+					spinnerLabels=new ArrayList<>();
+					
+					for(int p=0; p<checklists.get(spinnerWorld.getSelectedIndex()).size(); p++) {
 						
 						
-						JLabel label=new JLabel(pools.get(p).name.replace("`s", ""));
-						label.setToolTipText(hoverPoolText.get(p));
+						spinnerLabels.add(new JLabel(pools.get(p).name.replace("`s", "")));
+						spinnerLabels.get(p).setToolTipText(hoverPoolText.get(p));
 						try {
-							label.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
+							spinnerLabels.get(p).setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
 						} catch (FontFormatException | IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						spinnerBox.add(label);
-						spinnerBox.add(spinners.get(0).get(p));
-						totalPoints+=checklists.get(0).get(p)*pools.get(p).priority;
+						spinnerLabels.get(p).addMouseListener(this);
+						spinnerBox.add(spinnerLabels.get(p));
+						spinnerBox.add(spinners.get(spinnerWorld.getSelectedIndex()).get(p));
+						totalPoints+=checklists.get(spinnerWorld.getSelectedIndex()).get(p)*pools.get(p).priority;
 					}
 					spinnerPoints.setText("Points: "+totalPoints);
 					
-					spinnerPoints.setToolTipText("<html>Keyboard Controls: Click on pool spinner to start.<br>UP/DOWN ARROW: Increment or Decrement the number.<br>TAB: Go to next pool.<br>SHIFT+TAB:Go to previous pool.</html>");
+					spinnerPoints.setToolTipText("<html>Keyboard Controls: Click on pool spinner to start.<br>UP/DOWN ARROW: Increment or Decrement the number.<br>TAB: Go to next pool.<br>SHIFT+TAB:Go to previous pool."
+							+ "<br><br>Mouse Controls: Click on the pool labels to use the following.<br>LEFT CLICK: Increment the pool.<br>RIGHT CLICK: Decrement the pool."
+							+ "<br><br>Mouse Controls: Click on this label to use the following.<br>LEFT CLICK: Go to next location in list.<br>RIGHT CLICK: Go to previous location in list.</html>");
 			
 			
 			
@@ -1025,22 +1075,23 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			
 			int w=spinnerWorld.getSelectedIndex();
 			
-				
+				spinnerLabels=new ArrayList<>();
 
 					for(int p=0; p<checklists.get(w).size(); p++) {
 						
 						
-						JLabel label=new JLabel(pools.get(p).name.replace("`s", ""));
-						label.setToolTipText(hoverPoolText.get(p));
+						spinnerLabels.add(new JLabel(pools.get(p).name.replace("`s", "")));
+						spinnerLabels.get(p).setToolTipText(hoverPoolText.get(p));
 						try {
-							label.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
+							spinnerLabels.get(p).setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
 						} catch (FontFormatException | IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						spinnerBox.add(label);
+						spinnerBox.add(spinnerLabels.get(p));
 						spinnerBox.add(spinners.get(w).get(p));
 						totalPoints+=checklists.get(w).get(p)*pools.get(p).priority;
+						spinnerLabels.get(p).addMouseListener(this);
 					}
 					
 					spinnerPoints.setText("Points: "+totalPoints);
@@ -1090,7 +1141,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				io.printStackTrace();
 			}
 			
-			JOptionPane.showMessageDialog(frame,"Seed file saved at "+fileName.getAbsolutePath());
+			JOptionPane.showMessageDialog(frame,"Seed file saved at "+fileName.getPath());
 			
 		}//end seedButton
 		else if(e.getSource()==trackerButton) {
@@ -1107,21 +1158,33 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		popoutFrame.revalidate();
 	}
 
+	@SuppressWarnings("serial")
 	private JSpinner addLabeledSpinner(String name, SpinnerNumberModel spinnerNumberModel) {
 		// TODO Auto-generated method stub
-		
+
 		JLabel label=new JLabel(name);
 		//goARacle.add(label);
-		JSpinner spinner=new JSpinner(spinnerNumberModel);
-		label.setLabelFor(spinner);
-		//goARacle.add(spinner);
+		JSpinner spinner=new JSpinner(spinnerNumberModel)
+		{
+			public void setLayout(LayoutManager mgr) {
+				super.setLayout(new SpinnerLayout());
+			}
+		}
+		;
+		spinner.addMouseListener(this);
 		
+		label.setLabelFor(spinner);
+		spinner.getComponent(0).setSize(new Dimension(200,200));
+		spinner.getComponent(1).setSize(new Dimension(200,200));
+		//spinner.getComponent(2).setPreferredSize(new Dimension(10,10));
+		spinner.setFont(getFont().deriveFont(32f));
 		return spinner;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
 		
 	}
 	//Clicked and pressed not used.
@@ -1133,6 +1196,22 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		
+		
+			for(int p=0; p<spinnerLabels.size(); p++) {
+				if(e.getSource()==spinnerLabels.get(p)) {
+					if(e.getButton() == MouseEvent.BUTTON1&&(int)spinners.get(spinnerWorld.getSelectedIndex()).get(p).getValue()!=30) {
+						spinners.get(spinnerWorld.getSelectedIndex()).get(p).setValue((int)spinners.get(spinnerWorld.getSelectedIndex()).get(p).getValue()+1);
+						checklists.get(spinnerWorld.getSelectedIndex()).set(p,(int)spinners.get(spinnerWorld.getSelectedIndex()).get(p).getValue());
+					}
+					else if(e.getButton() == MouseEvent.BUTTON3&&(int)spinners.get(spinnerWorld.getSelectedIndex()).get(p).getValue()!=0) {
+						spinners.get(spinnerWorld.getSelectedIndex()).get(p).setValue((int)spinners.get(spinnerWorld.getSelectedIndex()).get(p).getValue()-1);
+						checklists.get(spinnerWorld.getSelectedIndex()).set(p,(int)spinners.get(spinnerWorld.getSelectedIndex()).get(p).getValue());
+					}
+				}
+			}
+		
+		
 		
 		
 		if(copyButtonExtra.isSelected())
@@ -1148,9 +1227,19 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				copyButtons[i].doClick();	
 			}
 			
-
+			if((e.getSource()==hintButtons[i]||e.getSource()==copyButtons[i])&&attempts[i]==13&&i!=13) {
+				
+				spinnerWorld.setSelectedIndex(worlds.indexOf(worldOrder.get(i)));
+				markButton.doClick();
+				
+				
+				
+			}//end open mark off
 			
 			if((e.getSource()==hintButtons[i]||e.getSource()==copyButtons[i])&&hintButtons[i].isEnabled()&&attempts[i]<3) {
+				
+				
+				int goaMapUsed=-1;
 				
 				String[] choices=new String[worlds.size()];
 				
@@ -1208,6 +1297,15 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 							
 							int bestUnfound=-1;
 							
+							if(pools.get(0).name.equals("Path of Light")&&!hidePoL) {
+								for(int r=0; r<13; r++) {
+									if(worldOrder.get(r).poolItems[0]>0&&attempts[r]<3) {
+										bestUnfound=r;
+										break;
+									}
+								}
+							}
+							if(bestUnfound==-1)
 							for(int r=0; r<13; r++) {
 								if(attempts[r]<3) {
 									bestUnfound=r;
@@ -1222,7 +1320,22 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 							else {
 								hintButtons[i].setText("The map leads you to Report "+(bestUnfound+1)+" in "+reports[bestUnfound].loc+".");
 								copyButtons[i].setText("GoA - The map leads you to Report "+(bestUnfound+1)+" in "+reports[bestUnfound].loc+".");
+								
+								hintButtons[bestUnfound].setText(worldOrder.get(bestUnfound).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(bestUnfound))),bestUnfound));
+								copyButtons[bestUnfound].setText((bestUnfound+1)+" - "+worldOrder.get(bestUnfound).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(bestUnfound))),bestUnfound));
+								
+								try {
+									hintButtons[bestUnfound].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,12));
+									copyButtons[bestUnfound].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,11));
+								} catch (FontFormatException | IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								goaMapUsed=bestUnfound;
+								attempts[bestUnfound]=13;
 							}
+							
+							
 							
 					}//end GoA map get best report
 					else {
@@ -1238,8 +1351,14 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				}
 				
 				popoutFrame.getContentPane().removeAll();
+				if(goaMapUsed==-1) {
 				popoutFrame.add(copyButtons[i]);
 				lastUpdatedButton=i;
+				}
+				else {
+					popoutFrame.add(copyButtons[goaMapUsed]);
+					lastUpdatedButton=goaMapUsed;
+				}
 				popoutFrame.repaint();
 				popoutFrame.revalidate();
 				
@@ -1261,6 +1380,20 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			if(copyButtons[i].isSelected()) {
 				copyButtons[i].doClick();	
 			}
+		}
+		
+		if(e.getSource()==spinnerPoints) {
+			if(e.getButton()==MouseEvent.BUTTON1) {
+				if(spinnerWorld.getSelectedIndex()==16)
+					spinnerWorld.setSelectedIndex(0);
+				else spinnerWorld.setSelectedIndex(spinnerWorld.getSelectedIndex()+1);
+			}
+			else if(e.getButton()==MouseEvent.BUTTON3) {
+				if(spinnerWorld.getSelectedIndex()==0)
+					spinnerWorld.setSelectedIndex(16);
+				else spinnerWorld.setSelectedIndex(spinnerWorld.getSelectedIndex()-1);
+			}
+				
 		}
 		
 		frame.revalidate();
@@ -1297,7 +1430,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 					
 					boolean changed=false;
 					
-					for(int i=0; i<hintButtons.length; i++) {
+					for(int i=0; i<hintButtons.length-1; i++) {
 						if(attempts[i]==13&&!hintButtons[i].getText().equals((worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i)))) {
 							hintButtons[i].setText(worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
 							copyButtons[i].setText((i+1)+" - "+worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
