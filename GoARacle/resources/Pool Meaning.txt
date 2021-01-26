@@ -4,26 +4,26 @@ Proof of Nonexistance
 Proof of Connection
 Proof of Tranquility
 
-[Goofy`s Choice] 10 items, 33 Priority Score
+[Goofy's Choice] 10 items, 33 Priority Score
 Valor Form
 Cure Element x3
 Reflect Element x3
 Magnet Element x3
 
-[Donald`s Choice] 10 items, 33 Priority Score
+[Donald's Choice] 10 items, 33 Priority Score
 Wisdom Form
 Fire Element x3
 Blizzard Element x3
 Thunder Element x3
 
-[Merlin`s Choice] 9 items, 33 Priority Score
+[Merlin's Choice] 9 items, 33 Priority Score
 Torn Page x5
 Baseball Charm
 Lamp Charm
 Ukelele Charm
 Feather Charm
 
-[Roxas` Choice] 13 items, 25 Priority Score
+[Roxas' Choice] 13 items, 25 Priority Score
 Final Form
 Light and Dark
 Scan x2
@@ -35,18 +35,18 @@ Combo Master
 Finishing Plus x3
 Counterguard
 
-[Riku`s Choice] 10 items, 25 Priority Score
+[Riku's Choice] 10 items, 25 Priority Score
 Limit Form
 Explosion
 Guard Break
 Flash Step
 Slide Dash
-Finishing Dive
+Finishing Dive/Finishing Leap
 Combo Boost x2
 Slapshot
-Round Break
+Round Break/Vicinity Break
 
-[Kairi`s Choice] 10 items, 25 Priority Score
+[Kairi's Choice] 10 items, 25 Priority Score
 Master Form
 Aerial Finish
 Magnet Splash
@@ -56,7 +56,7 @@ Horizontal Slash
 Air Combo Boost x2
 Berserk Charge x2
 
-[Mickey`s Choice] 11 items, 20 Priority Score
+[Mickey's Choice] 11 items, 20 Priority Score
 Trinity Limit
 Negative Combo x2
 Fire Boost x2
@@ -64,7 +64,7 @@ Blizzard Boost x2
 Thunder Boost x2
 Experience Boost x2
 
-[Yen Sid`s Choice] 20 items, 5 Priority Score
+[Yen Sid's Choice] 20 items, 5 Priority Score
 High Jump
 Quick Run
 Dodge Roll
@@ -72,17 +72,17 @@ Aerial Dodge
 Glide
 
 [Reports] 14 items, 15 Priority Score
-Secret Ansem`s Report 1
-Secret Ansem`s Report 2
-Secret Ansem`s Report 3
-Secret Ansem`s Report 4
-Secret Ansem`s Report 5
-Secret Ansem`s Report 6
-Secret Ansem`s Report 7
-Secret Ansem`s Report 8
-Secret Ansem`s Report 9
-Secret Ansem`s Report 10
-Secret Ansem`s Report 11
-Secret Ansem`s Report 12
-Secret Ansem`s Report 13
+Secret Ansem's Report 1
+Secret Ansem's Report 2
+Secret Ansem's Report 3
+Secret Ansem's Report 4
+Secret Ansem's Report 5
+Secret Ansem's Report 6
+Secret Ansem's Report 7
+Secret Ansem's Report 8
+Secret Ansem's Report 9
+Secret Ansem's Report 10
+Secret Ansem's Report 11
+Secret Ansem's Report 12
+Secret Ansem's Report 13
 Garden of Assemblage Map
