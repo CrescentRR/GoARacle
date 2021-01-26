@@ -73,7 +73,7 @@ public class World implements Comparable<World>{
 		else if(pools.get(highestPriorityIndex).name.equals("Reports")) {
 			temp="DiZ left hints ";
 		}
-		else if(pools.get(highestPriorityIndex).name.contains("`s Choice")) {
+		else if(pools.get(highestPriorityIndex).name.contains("'s Choice")) {
 			temp=pools.get(highestPriorityIndex).name.substring(0,pools.get(highestPriorityIndex).name.length()-9);
 			temp+=" wants you to look ";
 		}
@@ -104,15 +104,15 @@ public class World implements Comparable<World>{
 			else output+=this.name;
 		}
 		
-		int tempScore=priorityScore;
+		int tempScore=0;
 		foundScore=0;
 		
 		for(int i=0; i<checklist.size(); i++) {
-			tempScore-=checklist.get(i)*pools.get(i).priority;
+			tempScore+=checklist.get(i)*pools.get(i).priority;
 			foundScore+=checklist.get(i)*pools.get(i).priority;
 		}
 		
-		output+=" - Priority Score "+tempScore+" of "+priorityScore;
+		output+=" - Priority Score "+tempScore+"/"+priorityScore+" ("+((tempScore*100)/priorityScore)+"%)";
 		
 		
 		return output;

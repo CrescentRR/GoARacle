@@ -17,9 +17,10 @@ public class ColorToggleButton extends JToggleButton{
 			text=Color.decode("#36393E");
 		}
 		
-		else if(isSelected()) {
-			bg=Color.decode("#36393E");
+		if(getModel().isPressed()) {
+			bg=Color.decode("#7289da");
 			text=Color.decode("#ffffff");
+			
 		}
 		else {
 			bg=Color.decode("#36393E");
