@@ -112,8 +112,8 @@ public class World implements Comparable<World>{
 			foundScore+=checklist.get(i)*pools.get(i).priority;
 		}
 		
+		if(priorityScore!=0)
 		output+=" - Priority Score "+tempScore+"/"+priorityScore+" ("+((tempScore*100)/priorityScore)+"%)";
-		
 		
 		return output;
 

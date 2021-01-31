@@ -15,7 +15,8 @@ import javax.swing.plaf.basic.BasicButtonUI;
 public class GoARacle extends JPanel implements ActionListener, MouseListener, ChangeListener{
 	
 	
-	static String title="GoARacle v1.6.0 by CrescentRR";
+	static String title="GoARacle v1.6.1 by CrescentRR";
+	boolean showDevInfo=false;
 	
 	boolean hidePoL;
 	
@@ -100,7 +101,12 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerWorld=new JComboBox<String>(temp);
 		spinnerWorld.addActionListener(this);
 		spinnerWorld.setMaximumRowCount(20);
-		spinnerWorld.setFont(new Font("Monospaced",Font.BOLD,17));
+		try {
+			spinnerWorld.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,21));
+		} catch (FontFormatException | IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 		spinnerLabels=new ArrayList<>();
 		
@@ -118,7 +124,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerPoints=new JLabel();
 		try {
 			//spinnerPoints.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
-			spinnerPoints.setFont(new Font("Monospaced",Font.BOLD,35));
+			spinnerPoints.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,40));
 			seedButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
 			trackerButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
 		} catch (FontFormatException | IOException e1) {
@@ -254,8 +260,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		copyButtonExtra.setText(frame.getTitle());
 		
 		try {
-			//copyButtonExtra.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
-			copyButtonExtra.setFont(new Font("Monospaced",Font.BOLD,20));
+			copyButtonExtra.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,40));
 		for(int i=0; i<14; i++) {
 			hintButtons[i]=new ColorToggleButton();
 			hintButtons[i].setUI(new BasicButtonUI());
@@ -282,10 +287,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				hintButtons[i].setText("Secret Ansem's Report #"+(i+1));
 				copyButtons[i].setText("Secret Ansem's Report #"+(i+1));
 			}
-			//hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
-			//copyButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
-			hintButtons[i].setFont(new Font("Monospaced",Font.BOLD,19));
-			copyButtons[i].setFont(new Font("Monospaced",Font.BOLD,18));
+			hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,40));
+			copyButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,40));
 			hintButtons[i].setEnabled(false);
 			hintPanel.add(hintButtons[i]);
 			
@@ -351,7 +354,12 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		spinnerWorld=new JComboBox<String>(temp);
 		spinnerWorld.addActionListener(this);
 		spinnerWorld.setMaximumRowCount(20);
-		spinnerWorld.setFont(new Font("Monospaced",Font.BOLD,17));
+		try {
+			spinnerWorld.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,21));
+		} catch (FontFormatException | IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 		spinnerLabels=new ArrayList<>();
 		
@@ -367,8 +375,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		
 		spinnerPoints=new JLabel();
 		try {
-			//spinnerPoints.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
-			spinnerPoints.setFont(new Font("Monospaced",Font.BOLD,35));
+			spinnerPoints.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,40));
 			seedButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
 			trackerButton.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
 		} catch (FontFormatException | IOException e1) {
@@ -515,8 +522,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		copyButtonExtra.setText(frame.getTitle().replace('.', '-'));
 		
 		try {
-			//copyButtonExtra.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
-			copyButtonExtra.setFont(new Font("Monospaced",Font.BOLD,20));
+			copyButtonExtra.setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,40));
 		for(int i=0; i<14; i++) {
 			hintButtons[i]=new ColorToggleButton();
 			hintButtons[i].setUI(new BasicButtonUI());
@@ -544,8 +550,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			}
 			//hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
 			//copyButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,20));
-			hintButtons[i].setFont(new Font("Monospaced",Font.BOLD,20));
-			copyButtons[i].setFont(new Font("Monospaced",Font.BOLD,20));
+			hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,40));
+			copyButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,40));
 			
 			hintButtons[i].setEnabled(false);
 			hintPanel.add(hintButtons[i]);
@@ -592,15 +598,13 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 
 	
 	public static class Report{
-		
 		int num; //Report number
-		String loc; //location name (World name only, so far)
+		String loc; //world name 
 		
 		public Report(int num) {
 			this.num=num;
 			loc="";
-		}//end constructor
-		
+		}//end constructor	
 		
 	}//end Report class
 	
@@ -722,22 +726,47 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 	
 		JFileChooser jfc=new JFileChooser();
 		jfc.setDialogTitle("Select Seed File");
-		jfc.setCurrentDirectory(new File(System.getProperty("user.home")+"/Desktop"));
+		
+		File checkPath=new File("resources/DefaultPath.txt");
+		String path=System.getProperty("user.home")+"/Desktop";
+		
+		if(checkPath.exists()) {
+			
+			BufferedReader br=new BufferedReader(new FileReader(checkPath));
+			path=br.readLine();
+			br.close();
+		}
+		
+		jfc.setCurrentDirectory(new File(path));
 		
 		
 		//jfc.addChoosableFileFilter(new FileNameExtensionFilter("PNACH files", "pnach"));
+		
 		jfc.setFileFilter(new FileNameExtensionFilter("PNACH files", "pnach"));
+		//jfc.setFileFilter(new FileNameExtensionFilter("LUA scripts", "lua"));
 		
 		if(jfc.showOpenDialog(null)==JFileChooser.APPROVE_OPTION) {
 			
 			
 			
-			if(!jfc.getSelectedFile().getName().toLowerCase().contains("pnach")) {
+			if(!(jfc.getSelectedFile().getName().toLowerCase().contains("pnach")/*||jfc.getSelectedFile().getName().toLowerCase().contains("lua")*/)) {
 				readPnach();
 				return;
 			}
 			
-
+			File fileName=new File("resources/DefaultPath.txt");
+			
+			String outputText=jfc.getSelectedFile().getAbsolutePath();
+			
+			
+			try {
+				BufferedWriter outputStream=new BufferedWriter(new FileWriter(fileName));
+				outputStream.write(outputText);
+				outputStream.close();
+				
+			}catch(IOException io) {
+				io.printStackTrace();
+			}
 			
 			
 			for(int i=0; i<hintButtons.length; i++) {
@@ -770,6 +799,8 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				if(pools.get(p).name.equals("Reports"))
 					tempReports=pools.get(p);
 			
+			ArrayList<String> removedPools=new ArrayList<>();
+			
 			for(int i=0; i<labels.size(); i++) {
 				for(int p=0; p<pools.size(); p++) {
 						
@@ -779,6 +810,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 								removedPoL=true;
 							if(pools.get(p).name.equals("Reports"))
 								removedReports=true;
+							removedPools.add(pools.get(p).name.replace("'s Choice", ""));
 							pools.remove(p);
 							hoverPoolText.remove(p);
 							p--;
@@ -787,6 +819,19 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 					}//text equal
 				}//for each
 			}//for
+			
+			if(removedPools.size()>0) {
+			copyButtonExtra.setText("No ");
+			for(int i=0; i<removedPools.size(); i++) {
+				copyButtonExtra.setText(copyButtonExtra.getText()+removedPools.get(i));
+				if(i==removedPools.size()-1)
+					copyButtonExtra.setText(copyButtonExtra.getText()+". ");
+				else copyButtonExtra.setText(copyButtonExtra.getText()+", ");
+			}
+			}//end change copyButton text
+			else {
+				copyButtonExtra.setText("All pools included. ");
+			}
 			
 			for(World world:worlds) {
 				world.pools=pools;
@@ -831,28 +876,28 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			while((text=input.readLine())!=null) {
 				String[] split=text.split(",");
 				
-				//System.out.println(split.length);
+				
 				if(split.length!=5)
 					continue;
 				else {
-					//System.out.println(locationCodes.contains(split[2])+" "+poolCodes.contains(split[4]));
+					
 					if(locationCodes.contains(split[2])&&poolCodes.contains(split[4])) {
 						for(World world:worlds) {
-							//System.out.println(world.locations.contains(split[2]));
+							
 							if(world.locations.contains(split[2])) {
 								for(Pool pool:pools) {
-									//System.out.println(pool.items.contains(split[4]));
+									
 									if(pool.items.contains(split[4])) {
 										world.poolItems[pools.indexOf(pool)]++;
 										if(pool.name.equals("Reports")) {
 											reports[pool.items.indexOf(split[4])].loc=world.name;
-											System.out.println("Report "+(pool.items.indexOf(split[4])+1)+" is in "+world.name);
+											if(showDevInfo)System.out.println("Report "+(pool.items.indexOf(split[4])+1)+" is in "+world.name);
 										}//end Reports check
 									}
 								}
 								if(tempReports.items.contains(split[4])&&removedReports) {
 									reports[tempReports.items.indexOf(split[4])].loc=world.name;
-									System.out.println("Report "+(tempReports.items.indexOf(split[4])+1)+" is in "+world.name);
+									if(showDevInfo)System.out.println("Report "+(tempReports.items.indexOf(split[4])+1)+" is in "+world.name);
 								}
 							}//end world location check
 						}//end world world world
@@ -869,6 +914,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 		if(!removedPoL)
 		hidePoL=(JOptionPane.showConfirmDialog(null, "Would you like to hide Path of Light hints? (Points will still be counted.)")==JOptionPane.YES_OPTION);
 		
+		copyButtonExtra.setText(copyButtonExtra.getText()+"Hide PoL: "+hidePoL);
 		
 		for(World world:worlds) {
 			//world.fixLevel();
@@ -880,7 +926,7 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			throw new IOException("Problem reading pnach file.");
 		}
 		
-	}
+	}//end readPnach
 
 
 	@Override
@@ -932,9 +978,9 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 					hintButtons[i].setToolTipText("<html>"+(worldOrder.get(i).priorityScore-worldOrder.get(i).foundScore)+" points remaining."
 							+ "<br><br>Click me to go to the Mark Off page for "+worldOrder.get(i).name+".<html>");
 					copyButtons[i].setText("#"+(i+1)+" - "+worldOrder.get(i).getReportInfo(checklists.get(worlds.indexOf(worldOrder.get(i))),i));
-					popoutFrame.getContentPane().removeAll();
-					popoutFrame.add(copyButtons[i]);
-					lastUpdatedButton=i;
+					//popoutFrame.getContentPane().removeAll();
+					//popoutFrame.add(copyButtons[i]);
+					//lastUpdatedButton=i;
 					popoutFrame.repaint();
 					popoutFrame.revalidate();
 					
@@ -945,8 +991,14 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}*/
-					hintButtons[i].setFont(new Font("Monospaced",Font.BOLD,19));
-					copyButtons[i].setFont(new Font("Monospaced",Font.BOLD,18));
+					try {
+						hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,25));
+						copyButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,25));
+					} catch (FontFormatException | IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
 					
 				}
 			}
@@ -1044,14 +1096,14 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 						
 						spinnerLabels.add(new JLabel(pools.get(p).name));
 						spinnerLabels.get(p).setToolTipText(hoverPoolText.get(p));
-						/*try {
-							//spinnerLabels.get(p).setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
+
+						
+						try {
+							spinnerLabels.get(p).setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,30));
 						} catch (FontFormatException | IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
-						}*/
-						
-						spinnerLabels.get(p).setFont(new Font("Monospaced",Font.BOLD,25));
+						}
 						
 						spinnerLabels.get(p).addMouseListener(this);
 						spinnerBox.add(spinnerLabels.get(p));
@@ -1073,8 +1125,6 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			markButton.setSelected(false);
 		}//end markButton
 		else if(e.getSource()==spinnerWorld) {
-			
-			//System.out.println("HERE");
 			
 			spinnerBox.getContentPane().removeAll();
 			spinnerBox.setTitle(spinnerWorld.getSelectedItem()+" Checklist");
@@ -1101,14 +1151,14 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 						
 						spinnerLabels.add(new JLabel(pools.get(p).name));
 						spinnerLabels.get(p).setToolTipText(hoverPoolText.get(p));
-						/*try {
-							//spinnerLabels.get(p).setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2_ALL_MENU_I.TTF"))).deriveFont(Font.PLAIN,15));
+
+						
+						try {
+							spinnerLabels.get(p).setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,30));
 						} catch (FontFormatException | IOException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
-						}*/
-						
-						spinnerLabels.get(p).setFont(new Font("Monospaced",Font.BOLD,25));
+						}
 						
 						spinnerBox.add(spinnerLabels.get(p));
 						spinnerBox.add(spinners.get(w).get(p));
@@ -1156,7 +1206,6 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			try {
 				BufferedWriter outputStream=new BufferedWriter(new FileWriter(fileName));
 				outputStream.write(outputText);
-				//System.out.println(fileName.getAbsolutePath());
 				outputStream.close();
 				
 			}catch(IOException io) {
@@ -1296,7 +1345,6 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 				else confirmChoice=JOptionPane.showConfirmDialog(null,"Are you sure that Report #"+(i+1)+" was in "+answer+"?","Confirmation for Report #"+(i+1)+", attempt #"+(attempts[i]+1)+"/3",JOptionPane.YES_NO_OPTION);
 				}
 				
-				//System.out.println(confirmHappened+" "+confirmChoice);
 				}while(confirmChoice==JOptionPane.NO_OPTION);
 				
 				if(answer.equals(correctAnswer)&&( (confirmHappened&&confirmChoice==JOptionPane.YES_OPTION)||(!confirmHappened&&confirmChoice==-1) )) {
@@ -1339,8 +1387,14 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 									e1.printStackTrace();
 								}*/
 								
-								hintButtons[bestUnfound].setFont(new Font("Monospaced",Font.BOLD,19));
-								copyButtons[bestUnfound].setFont(new Font("Monospaced",Font.BOLD,18));
+								try {
+									hintButtons[bestUnfound].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,25));
+									copyButtons[bestUnfound].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,25));
+								} catch (FontFormatException | IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								
 								
 								goaMapUsed=bestUnfound;
 								attempts[bestUnfound]=13;
@@ -1362,8 +1416,14 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}*/
-					hintButtons[i].setFont(new Font("Monospaced",Font.BOLD,19));
-					copyButtons[i].setFont(new Font("Monospaced",Font.BOLD,18));
+					try {
+						hintButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,25));
+						copyButtons[i].setFont(Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("resources/KH2.5.ttf"))).deriveFont(Font.BOLD,25));
+					} catch (FontFormatException | IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
 				
 				popoutFrame.getContentPane().removeAll();
 				if(goaMapUsed==-1) {
@@ -1434,8 +1494,6 @@ public class GoARacle extends JPanel implements ActionListener, MouseListener, C
 			for(int p=0; p<spinners.get(w).size(); p++) {
 				if(e.getSource()==spinners.get(w).get(p)) {
 					checklists.get(w).set(p,(int)spinners.get(w).get(p).getValue());
-					
-					//System.out.println(worlds.get(w).name+" "+pools.get(p).name+" "+checklists.get(w).get(p));
 					
 					int totalPoints=0;
 					
